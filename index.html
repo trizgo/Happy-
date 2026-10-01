@@ -8,10 +8,11 @@
 <style>
 *{box-sizing:border-box;margin:0}
 body{font-family:'Hind Siliguri',sans-serif;min-height:100vh;color:#fff;background:#150a2b;overflow-x:hidden}
-body::before{content:"";position:fixed;inset:0;z-index:0;background:radial-gradient(600px at 15% 15%,#7b2ff766,transparent),radial-gradient(520px at 85% 85%,#f107a366,transparent),radial-gradient(420px at 85% 12%,#00c6ff33,transparent);animation:bg 10s infinite alternate}
-@keyframes bg{to{transform:scale(1.2) translateY(-25px)}}
-.fl{position:fixed;bottom:-50px;z-index:0;opacity:.55;pointer-events:none;animation:rise linear infinite}
-@keyframes rise{to{transform:translateY(-120vh) rotate(40deg)}}
+body::before{content:"";position:fixed;inset:0;z-index:0;background:radial-gradient(700px at 10% 10%,#6d28d955,transparent),radial-gradient(600px at 90% 90%,#be185d55,transparent),linear-gradient(160deg,#140a2e,#241044 55%,#34103f)}
+.fl{position:fixed;z-index:0;border-radius:50%;background:#fff;box-shadow:0 0 8px 2px #fff8;pointer-events:none;animation:tw ease-in-out infinite alternate}
+@keyframes tw{from{opacity:.08}to{opacity:.9}}
+.orb{position:fixed;z-index:0;border-radius:50%;pointer-events:none;filter:blur(28px);animation:drift 18s ease-in-out infinite alternate}
+@keyframes drift{to{transform:translate(60px,-80px) scale(1.2)}}
 .stage{display:none;position:relative;z-index:1;min-height:100vh;padding:22px 14px;flex-direction:column;align-items:center;justify-content:center;text-align:center}
 .stage.on{display:flex;animation:fade .45s}
 @keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
@@ -51,22 +52,25 @@ button.alt{background:rgba(255,255,255,.2);box-shadow:none}
 .candle.off .flame{display:none}
 .candle.off::after{content:"";position:absolute;left:50%;top:-10px;width:6px;height:6px;margin-left:-3px;border-radius:50%;background:#fff8;animation:smoke 1.4s forwards}
 @keyframes smoke{to{transform:translateY(-60px) scale(5);opacity:0}}
-/* notes */
-.note{background:linear-gradient(135deg,#fffbe8,#ffeef6);color:#4a3b2a;padding:16px 20px;border-radius:14px;margin:10px auto;max-width:420px;box-shadow:0 10px 24px #0005;font-size:19px;line-height:1.6;opacity:0;animation:fade .6s forwards}
-.note:nth-child(odd){rotate:-1.5deg}.note:nth-child(even){rotate:1.5deg}
-/* 3D carousel */
-.car{position:relative;width:min(94vw,560px);height:min(82vw,410px);perspective:1100px;margin:18px auto}
-.slide{position:absolute;top:0;left:22%;width:56%;height:100%;background:#fff;padding:8px 8px 30px;border-radius:6px;box-shadow:0 18px 40px #000a;transition:transform .8s cubic-bezier(.3,.8,.3,1),opacity .8s;cursor:pointer;overflow:hidden}
-.slide img{width:100%;height:100%;object-fit:cover;display:block;border-radius:3px}
-.slide.c img{animation:kb 4s ease-out forwards}
-@keyframes kb{to{transform:scale(1.13)}}
-.nav button{padding:8px 20px}
+/* letter */
+.letter{position:relative;width:min(92vw,440px);min-height:250px;margin:14px 0 6px;padding:40px 28px;border-radius:22px;background:linear-gradient(160deg,rgba(255,255,255,.2),rgba(255,255,255,.05));border:1px solid #fff6;outline:1px solid #fff4;outline-offset:-10px;box-shadow:0 24px 60px #0008,inset 0 0 50px #ff6ec426;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.letter::before,.letter::after{position:absolute;font-size:60px;color:#ff9ed8;opacity:.55;font-family:serif;line-height:1}
+.letter::before{content:"\201C";top:10px;left:16px}.letter::after{content:"\201D";bottom:-10px;right:16px}
+.lt{font-size:24px;line-height:1.75;font-weight:600;white-space:pre-wrap;text-shadow:0 0 14px #ff6ec4cc,2px 2px 0 #7873f577,4px 4px 0 #0003}
+/* photo pile */
+.car{position:relative;width:min(92vw,400px);height:min(116vw,480px);margin:10px auto}
+.slide{position:absolute;left:50%;top:50%;width:min(74vw,290px);aspect-ratio:3/4;padding:10px 10px 40px;background:#fff;border-radius:4px;box-shadow:0 16px 36px #000b;cursor:pointer;transform:translate(-50%,-190%) rotate(25deg);opacity:0;transition:transform .9s cubic-bezier(.2,.9,.3,1.1),opacity .6s}
+.slide img{width:100%;height:100%;object-fit:cover;display:block;border-radius:2px}
+.slide::before{content:"";position:absolute;top:-12px;left:50%;width:84px;height:24px;margin-left:-42px;background:#ffd1e6cc;transform:rotate(-3deg)}
+.slide::after{content:"\2665";position:absolute;bottom:8px;right:14px;color:#ff6ec4;font-size:20px}
 .conf{position:fixed;top:-30px;width:9px;height:14px;z-index:9;animation:fall linear forwards;pointer-events:none}
 @keyframes fall{to{transform:translateY(112vh) rotate(720deg)}}
 .big{font-size:clamp(34px,9vw,60px);line-height:1.3}
 .hint{opacity:.9;margin:8px;min-height:24px}
-#doll{transition:font-size .4s cubic-bezier(.3,1.6,.5,1);font-size:70px;line-height:1.1;animation:bob 1.6s infinite alternate}
-@keyframes bob{to{transform:translateY(-8px) rotate(3deg)}}
+#doll{width:min(60vw,170px);transition:width .45s cubic-bezier(.3,1.6,.5,1);animation:bob 1.8s infinite alternate;filter:drop-shadow(0 14px 20px #0007)}
+#doll svg{width:100%;display:block}
+@keyframes bob{to{transform:translateY(-8px) rotate(2deg)}}
+.resp{font-size:13px;padding:6px 10px;margin:2px 0 6px;background:#0003;border-radius:10px}
 #yes{transition:.3s}
 </style>
 </head>
@@ -126,16 +130,21 @@ button.alt{background:rgba(255,255,255,.2);box-shadow:none}
   <button id="toNotes" style="display:none">Next ➜</button>
 </div>
 
-<div id="vNotes" class="stage"><h2 style="font-size:32px;margin-bottom:10px">💌 A few words for you</h2><div id="notes"></div><button id="toPhotos">Next ➜</button></div>
+<div id="vNotes" class="stage"><h2 style="font-size:32px;margin-bottom:6px">💌 A few words for you</h2><div class="letter" id="letter"><div class="lt" id="lt"></div></div><div class="hint">Tap the card to skip ahead</div><button id="toPhotos" style="visibility:hidden">Next ➜</button></div>
 
-<div id="vPhotos" class="stage"><h2 style="font-size:32px">📸 Sweet Memories</h2>
-  <div class="car" id="car"></div>
-  <div class="nav"><button class="alt" id="prevS">‹</button><button class="alt" id="nextS">›</button></div>
-  <button id="toAsk">Next ➜</button></div>
+<div id="vPhotos" class="stage"><h2 style="font-size:32px">📸 Sweet Memories</h2><div class="car" id="car"></div><div class="hint">Tap a photo to flip to the next one</div><button id="toAsk">Next ➜</button></div>
 
 <div id="vAsk" class="stage">
   <div class="card" style="max-width:360px;margin-bottom:14px"><div id="bubble" style="font-size:22px;font-weight:600"></div></div>
-  <div id="doll">🧸</div>
+  <div id="doll"><svg viewBox="0 0 200 232">
+<g fill="#fff" stroke="#e0d8f0" stroke-width="3"><circle cx="55" cy="42" r="26"/><circle cx="145" cy="42" r="26"/><ellipse cx="72" cy="215" rx="23" ry="14"/><ellipse cx="128" cy="215" rx="23" ry="14"/><ellipse cx="100" cy="165" rx="52" ry="55"/><ellipse cx="40" cy="158" rx="17" ry="31" transform="rotate(25 40 158)"/><ellipse cx="160" cy="158" rx="17" ry="31" transform="rotate(-25 160 158)"/><circle cx="100" cy="85" r="52"/></g>
+<circle cx="55" cy="42" r="13" fill="#ffd9e8"/><circle cx="145" cy="42" r="13" fill="#ffd9e8"/>
+<ellipse cx="100" cy="172" rx="30" ry="34" fill="#fff0f7"/><path d="M100 192C82 178 90 160 100 171C110 160 118 178 100 192Z" fill="#ff4d8d"/>
+<ellipse cx="100" cy="102" rx="23" ry="17" fill="#fff0f7" stroke="#e0d8f0" stroke-width="2"/>
+<circle cx="78" cy="78" r="7" fill="#3b2a4d"/><circle cx="122" cy="78" r="7" fill="#3b2a4d"/><circle cx="80" cy="75" r="2.5" fill="#fff"/><circle cx="124" cy="75" r="2.5" fill="#fff"/>
+<ellipse cx="100" cy="94" rx="7" ry="5" fill="#3b2a4d"/><path id="mouth" d="M91 106 Q100 113 109 106" stroke="#3b2a4d" stroke-width="3" fill="none" stroke-linecap="round"/>
+<circle cx="60" cy="96" r="8" fill="#ffb3d1" opacity=".75"/><circle cx="140" cy="96" r="8" fill="#ffb3d1" opacity=".75"/>
+<g id="tears" style="display:none"><path d="M76 86q-6 13 0 17q6-4 0-17z" fill="#7dd3fc"/><path d="M124 86q6 13 0 17q-6-4 0-17z" fill="#7dd3fc"/></g></svg></div>
   <div style="margin-top:18px"><button id="yes">Yes 💖</button><button id="no" class="alt">No</button></div>
 </div>
 
@@ -168,11 +177,11 @@ const sha = async t => [...new Uint8Array(await crypto.subtle.digest('SHA-256', 
 const baseLink = id => location.origin + location.pathname + '?w=' + id;
 const photoDocs = async id => (await getDocs(collection(db, 'wishes', id, 'photos'))).docs;
 
-// floating background
-['🎈','💖','✨','🎀','🌸','⭐'].forEach((e, k) => { for (let i = 0; i < 3; i++) {
-  const d = document.createElement('div'); d.className = 'fl'; d.textContent = e;
-  d.style.left = Math.random() * 96 + 'vw'; d.style.fontSize = 16 + Math.random() * 22 + 'px';
-  d.style.animationDuration = 9 + Math.random() * 10 + 's'; d.style.animationDelay = -Math.random() * 14 + 's'; document.body.append(d); } });
+// soft twinkling background
+for (let i = 0; i < 46; i++) { const d = document.createElement('div'); d.className = 'fl'; const z = 1.5 + Math.random() * 3;
+  d.style.cssText = `left:${Math.random() * 100}vw;top:${Math.random() * 100}vh;width:${z}px;height:${z}px;animation-duration:${2 + Math.random() * 4}s;animation-delay:${-Math.random() * 5}s`; document.body.append(d); }
+['#ff6ec455', '#7873f555', '#c58bff55', '#38bdf833', '#ffb86b33'].forEach(c => { const d = document.createElement('div'); d.className = 'orb'; const z = 140 + Math.random() * 160;
+  d.style.cssText = `left:${Math.random() * 90}vw;top:${Math.random() * 90}vh;width:${z}px;height:${z}px;animation-delay:${-Math.random() * 18}s;background:radial-gradient(circle,${c},transparent 70%)`; document.body.append(d); });
 
 const wid = new URLSearchParams(location.search).get('w');
 if (wid) viewer(wid); else adminInit();
@@ -258,9 +267,18 @@ function adminInit() {
       mk('Edit', () => startEdit(d.id, w));
       mk('🗑', async () => {
         if (!confirm('Delete this wish?')) return;
-        await Promise.all((await photoDocs(d.id)).map(p => deleteDoc(p.ref))); await deleteDoc(d.ref); loadList();
+        await Promise.all([...await photoDocs(d.id), ...(await getDocs(collection(db, 'wishes', d.id, 'responses'))).docs].map(p => deleteDoc(p.ref))); await deleteDoc(d.ref); loadList();
       });
       r.append(t, b); l.append(r);
+      if (w.mode && w.mode !== 'none') {
+        const x = document.createElement('div'); x.className = 'resp'; x.textContent = '⏳ Not answered yet'; l.append(x);
+        getDocs(collection(db, 'wishes', d.id, 'responses')).then(sn => {
+          const a = sn.docs.map(q => q.data()).sort((p, q) => q.at - p.at); if (!a.length) return;
+          const y = a.find(v => v.answer === 'yes'), v = y || a[0], lab = w.mode === 'sorry' ? 'Sorry 🥺' : 'I Love You ❤️';
+          const when = new Date(v.at).toLocaleString('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
+          x.textContent = y ? `✅ ${lab}: said YES after ${y.nos} No click${y.nos === 1 ? '' : 's'} — ${when}` : `🤔 ${lab}: clicked No ${v.nos} time${v.nos === 1 ? '' : 's'}, no Yes yet — ${when}`;
+        }).catch(() => {});
+      }
     });
   }
 }
@@ -284,7 +302,9 @@ async function viewer(id) {
     if (!s.exists()) return show('vErr');
     w = s.data(); photos = ps.map(d => d.data()).sort((a, b) => a.i - b.i).map(p => p.data);
   } catch (e) { return show('vErr'); }
-  let timer, cur = 0, nos = 0;
+  let timer, nos = 0, sid = '', order = [], Q = [];
+  const rnd = (a, b) => a + Math.random() * (b - a);
+  const chars = t => window.Intl && Intl.Segmenter ? [...new Intl.Segmenter(undefined, { granularity: 'grapheme' }).segment(t)].map(x => x.segment) : Array.from(t);
 
   const start = () => {
     clearInterval(timer);
@@ -316,44 +336,58 @@ async function viewer(id) {
 
   const toNotes = () => {
     if (!w.notes.length) return toPhotos();
-    const n = $('#notes'); n.innerHTML = '';
-    w.notes.forEach((t, i) => { const d = document.createElement('div'); d.className = 'note'; d.style.animationDelay = i * .6 + 's'; d.textContent = t; n.append(d); });
-    show('vNotes');
+    const lt = $('#lt'), nb = $('#toPhotos'); let ni = 0, ci = 0, tm, cs = [], busy = false;
+    nb.style.visibility = 'hidden'; lt.style.transition = 'opacity .35s'; show('vNotes');
+    const load = () => { busy = false; cs = chars(w.notes[ni]); ci = 0; lt.style.opacity = 1; type(); };
+    const type = () => { lt.textContent = cs.slice(0, ++ci).join(''); tm = setTimeout(ci < cs.length ? type : next, ci < cs.length ? (cs.length > 120 ? 15 : 38) : 1800); };
+    const next = () => { if (++ni >= w.notes.length) { nb.style.visibility = 'visible'; return; } busy = true; lt.style.opacity = 0; tm = setTimeout(load, 350); };
+    $('#letter').onclick = () => { if (busy || ni >= w.notes.length) return; clearTimeout(tm); if (ci < cs.length) { ci = cs.length; lt.textContent = cs.join(''); tm = setTimeout(next, 1100); } else next(); };
+    load();
   };
   const place = () => {
-    const n = photos.length, half = n / 2;
-    [...$('#car').children].forEach((el, i) => {
-      let d = (i - cur) % n; if (d > half) d -= n; if (d < -half) d += n;
-      const a = Math.abs(d);
-      el.style.transform = `translateX(${d * 62}%) translateZ(${-a * 150}px) rotateY(${-d * 40}deg) scale(${1 - a * .06})`;
-      el.style.opacity = a > 2 ? 0 : 1 - a * .22; el.style.zIndex = 10 - a; el.classList.toggle('c', d === 0);
+    const n = photos.length;
+    [...$('#car').children].forEach(el => {
+      const i = +el.dataset.i, k = order.indexOf(i), q = Q[i];
+      el.style.zIndex = n - k; el.style.opacity = k > 3 ? 0 : 1;
+      el.style.transform = `translate(-50%,-50%) translate(${q.x}px,${q.y}px) rotate(${k ? q.r : q.r / 2}deg) scale(${k ? 1 : 1.03})`;
     });
   };
-  const go = k => { cur = (cur + k + photos.length) % photos.length; place(); };
+  let flying = false;
+  const flick = () => {
+    if (photos.length < 2 || flying) return; flying = true;
+    const top = $('#car').children[order[0]], dir = Math.random() < .5 ? -1 : 1;
+    top.style.transform = `translate(-50%,-50%) translate(${dir * 125}%,-40px) rotate(${dir * 30}deg)`; top.style.opacity = 0;
+    setTimeout(() => { order.push(order.shift()); top.style.transition = 'none'; place(); void top.offsetWidth; top.style.transition = ''; flying = false; }, 700);
+  };
   const toPhotos = () => {
     if (!photos.length) return toAsk();
-    const car = $('#car'); car.innerHTML = ''; cur = 0;
-    photos.forEach(p => { const d = document.createElement('div'); d.className = 'slide'; const im = new Image(); im.src = p; d.append(im); d.onclick = () => go(1); car.append(d); });
-    show('vPhotos'); place();
-    clearInterval(timer); if (photos.length > 1) timer = setInterval(() => go(1), 2800);
+    const car = $('#car'); car.innerHTML = ''; flying = false; order = photos.map((_, i) => i);
+    Q = photos.map(() => ({ x: rnd(-24, 24), y: rnd(-22, 22), r: rnd(-11, 11) }));
+    photos.forEach((p, i) => {
+      const d = document.createElement('div'); d.className = 'slide'; d.dataset.i = i; const im = new Image(); im.src = p; d.append(im);
+      d.onclick = () => { clearInterval(timer); flick(); timer = setInterval(flick, 2800); }; car.append(d);
+    });
+    show('vPhotos'); requestAnimationFrame(() => requestAnimationFrame(place));
+    clearInterval(timer); timer = setInterval(flick, 2800);
   };
-  $('#prevS').onclick = () => { clearInterval(timer); go(-1); };
-  $('#nextS').onclick = () => { clearInterval(timer); go(1); };
 
+  const nosTxt = ['Are you sure? 🥺', 'Please... 😢', 'Pretty please? 🥹', 'I will be so sad... 😭', 'Last chance, please? 💔'];
+  const log = a => setDoc(doc(db, 'wishes', id, 'responses', sid), { mode: w.mode, nos, answer: a || '', at: Date.now() }).catch(() => {});
+  const sad = () => { const sd = nos >= 2; $('#tears').style.display = sd ? '' : 'none'; $('#mouth').setAttribute('d', sd ? 'M90 111 Q100 102 110 111' : 'M91 106 Q100 113 109 106'); };
   const toAsk = () => {
     clearInterval(timer);
     if (!w.mode || w.mode === 'none') return toEnd();
-    nos = 0; $('#doll').style.fontSize = '70px'; $('#no').style.display = ''; $('#yes').style.fontSize = '';
+    nos = 0; sid = Math.random().toString(36).slice(2, 10); sad();
+    $('#doll').style.width = ''; $('#no').style.display = ''; $('#yes').style.fontSize = '';
     $('#bubble').textContent = w.q || (w.mode === 'sorry' ? 'Will you forgive me? 🥺' : 'I love you ❤️ Do you love me too?');
     show('vAsk');
   };
-  const nosTxt = ['Are you sure? 🥺', 'Please... 😢', 'Pretty please? 🥹'];
   $('#no').onclick = () => {
-    nos++; $('#doll').style.fontSize = 70 + nos * 45 + 'px';
-    if (nos >= 3) { $('#no').style.display = 'none'; $('#bubble').textContent = 'Okay, you can only press Yes now 😤💖'; $('#yes').style.fontSize = '26px'; }
+    nos++; sad(); $('#doll').style.width = `min(88vw,${170 + nos * 40}px)`; log();
+    if (nos >= 5) { $('#no').style.display = 'none'; $('#bubble').textContent = 'Okay, you can only press Yes now 😤💖'; $('#yes').style.fontSize = '26px'; }
     else $('#bubble').textContent = nosTxt[nos - 1];
   };
-  $('#yes').onclick = () => { confetti('💖'); toEnd(w.mode === 'sorry' ? 'Thank you for forgiving me 🥹💖' : 'You just made my day 💖'); };
+  $('#yes').onclick = () => { log('yes'); confetti('💖'); toEnd(w.mode === 'sorry' ? 'Thank you for forgiving me 🥹💖' : 'You just made my day 💖'); };
 
   const toEnd = (msg) => {
     clearInterval(timer);
