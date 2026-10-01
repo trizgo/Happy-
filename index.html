@@ -7,16 +7,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&family=Pacifico&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0}
-body{font-family:'Hind Siliguri',sans-serif;min-height:100vh;color:#fff;background:#150a2b;overflow-x:hidden}
-body::before{content:"";position:fixed;inset:0;z-index:0;background:radial-gradient(700px at 10% 10%,#6d28d955,transparent),radial-gradient(600px at 90% 90%,#be185d55,transparent),linear-gradient(160deg,#140a2e,#241044 55%,#34103f)}
-.fl{position:fixed;z-index:0;border-radius:50%;background:#fff;box-shadow:0 0 8px 2px #fff8;pointer-events:none;animation:tw ease-in-out infinite alternate}
-@keyframes tw{from{opacity:.08}to{opacity:.9}}
-.orb{position:fixed;z-index:0;border-radius:50%;pointer-events:none;filter:blur(28px);animation:drift 18s ease-in-out infinite alternate}
-@keyframes drift{to{transform:translate(60px,-80px) scale(1.2)}}
+body{font-family:'Hind Siliguri',sans-serif;min-height:100vh;color:#fff;background:linear-gradient(160deg,#ff9cc8 0%,#ff6aa9 55%,#e8408a 100%) fixed;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:0;background:radial-gradient(circle at 25% 12%,#ffd6e8aa,transparent 50%),radial-gradient(circle at 80% 95%,#c2185b66,transparent 55%)}
+.sp{position:fixed;z-index:0;border-radius:50%;pointer-events:none;background:radial-gradient(circle at 32% 28%,#fff 0,#fffc 6%,#ffd3e7 22%,#ff8fc0 58%,#c2185b 100%);box-shadow:inset -6px -8px 16px #8a0f4a66,0 18px 30px #8a0f4a44;animation:flt ease-in-out infinite alternate}
+.ht{position:fixed;z-index:0;pointer-events:none;filter:drop-shadow(0 14px 14px #8a0f4a66);rotate:var(--r);animation:flt ease-in-out infinite alternate}
+.ht svg{width:100%;display:block}
+@keyframes flt{to{transform:translate(18px,-46px)}}
 .stage{display:none;position:relative;z-index:1;min-height:100vh;padding:22px 14px;flex-direction:column;align-items:center;justify-content:center;text-align:center}
 .stage.on{display:flex;animation:fade .45s}
 @keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
-.card{background:rgba(255,255,255,.12);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.28);border-radius:24px;padding:22px;width:100%;max-width:440px;box-shadow:0 20px 50px rgba(0,0,0,.35)}
+.card{background:rgba(160,20,90,.3);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.28);border-radius:24px;padding:22px;width:100%;max-width:440px;box-shadow:0 20px 50px rgba(0,0,0,.35)}
 h2{font-family:'Pacifico',cursive;font-weight:400;text-shadow:0 4px 18px #f107a399}
 input,textarea,select{width:100%;padding:12px 14px;margin:6px 0;border-radius:12px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.14);color:#fff;font:inherit;outline:none}
 select option{color:#222}
@@ -27,7 +27,7 @@ button{cursor:pointer;border:0;border-radius:30px;padding:12px 26px;font:600 16p
 button:hover{transform:translateY(-2px) scale(1.04)}
 button.sm{padding:6px 13px;font-size:13px;margin:2px}
 button.alt{background:rgba(255,255,255,.2);box-shadow:none}
-.err{color:#ffb3c1;min-height:18px;font-size:14px}
+.err{color:#7a0030;font-weight:600;min-height:18px;font-size:14px}
 #admin .card,#adminLogin .card{max-width:560px;text-align:left}
 .row{display:flex;gap:8px;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid #fff2;font-size:15px}
 .prev{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
@@ -52,11 +52,9 @@ button.alt{background:rgba(255,255,255,.2);box-shadow:none}
 .candle.off .flame{display:none}
 .candle.off::after{content:"";position:absolute;left:50%;top:-10px;width:6px;height:6px;margin-left:-3px;border-radius:50%;background:#fff8;animation:smoke 1.4s forwards}
 @keyframes smoke{to{transform:translateY(-60px) scale(5);opacity:0}}
-/* letter */
-.letter{position:relative;width:min(92vw,440px);min-height:250px;margin:14px 0 6px;padding:40px 28px;border-radius:22px;background:linear-gradient(160deg,rgba(255,255,255,.2),rgba(255,255,255,.05));border:1px solid #fff6;outline:1px solid #fff4;outline-offset:-10px;box-shadow:0 24px 60px #0008,inset 0 0 50px #ff6ec426;display:flex;align-items:center;justify-content:center;cursor:pointer}
-.letter::before,.letter::after{position:absolute;font-size:60px;color:#ff9ed8;opacity:.55;font-family:serif;line-height:1}
-.letter::before{content:"\201C";top:10px;left:16px}.letter::after{content:"\201D";bottom:-10px;right:16px}
-.lt{font-size:24px;line-height:1.75;font-weight:600;white-space:pre-wrap;text-shadow:0 0 14px #ff6ec4cc,2px 2px 0 #7873f577,4px 4px 0 #0003}
+/* notes */
+.note{background:linear-gradient(135deg,#fffbe8,#ffeef6);color:#4a3b2a;padding:16px 20px;border-radius:14px;margin:10px auto;max-width:420px;box-shadow:0 10px 24px #0005;font-size:19px;line-height:1.6;opacity:0;animation:fade .6s forwards;white-space:pre-wrap}
+.note:nth-child(odd){rotate:-1.5deg}.note:nth-child(even){rotate:1.5deg}
 /* photo pile */
 .car{position:relative;width:min(92vw,400px);height:min(116vw,480px);margin:10px auto}
 .slide{position:absolute;left:50%;top:50%;width:min(74vw,290px);aspect-ratio:3/4;padding:10px 10px 40px;background:#fff;border-radius:4px;box-shadow:0 16px 36px #000b;cursor:pointer;transform:translate(-50%,-190%) rotate(25deg);opacity:0;transition:transform .9s cubic-bezier(.2,.9,.3,1.1),opacity .6s}
@@ -67,9 +65,10 @@ button.alt{background:rgba(255,255,255,.2);box-shadow:none}
 @keyframes fall{to{transform:translateY(112vh) rotate(720deg)}}
 .big{font-size:clamp(34px,9vw,60px);line-height:1.3}
 .hint{opacity:.9;margin:8px;min-height:24px}
-#doll{width:min(60vw,170px);transition:width .45s cubic-bezier(.3,1.6,.5,1);animation:bob 1.8s infinite alternate;filter:drop-shadow(0 14px 20px #0007)}
+#doll{width:min(78vw,260px);transition:width .45s cubic-bezier(.3,1.6,.5,1);animation:bob 1.8s infinite alternate;filter:drop-shadow(0 14px 20px #0007)}
 #doll svg{width:100%;display:block}
 @keyframes bob{to{transform:translateY(-8px) rotate(2deg)}}
+.nb{position:relative}.nb b{position:absolute;top:12px;right:10px;width:22px;height:22px;border-radius:50%;background:#f43f5e;font-size:11px;line-height:22px;text-align:center;cursor:pointer}
 .resp{font-size:13px;padding:6px 10px;margin:2px 0 6px;background:#0003;border-radius:10px}
 #yes{transition:.3s}
 </style>
@@ -92,7 +91,7 @@ button.alt{background:rgba(255,255,255,.2);box-shadow:none}
     <div class="row" style="border:0"><h2 style="font-size:26px" id="formTitle">🎂 New Wish</h2><button class="sm alt" id="logout">Logout</button></div>
     <label>Birthday person's name (optional)</label><input id="aName" placeholder="e.g. Riya">
     <label>Birthday date (optional)</label><input id="aDate" type="date">
-    <label>Notes (one note per line — Bengali or English)</label><textarea id="aNotes" rows="5" placeholder="Happy Birthday! 🎉&#10;You are so special..."></textarea>
+    <label>Notes (Bengali or English) — tap + to add more</label><div id="notesBox"></div><button type="button" class="sm" id="addNote">＋ Add note</button>
     <label>Photos <span id="pc"></span></label>
     <div class="prev" id="prev"></div>
     <button type="button" class="sm" id="addBtn">+ Add photos</button>
@@ -130,21 +129,30 @@ button.alt{background:rgba(255,255,255,.2);box-shadow:none}
   <button id="toNotes" style="display:none">Next ➜</button>
 </div>
 
-<div id="vNotes" class="stage"><h2 style="font-size:32px;margin-bottom:6px">💌 A few words for you</h2><div class="letter" id="letter"><div class="lt" id="lt"></div></div><div class="hint">Tap the card to skip ahead</div><button id="toPhotos" style="visibility:hidden">Next ➜</button></div>
+<div id="vNotes" class="stage"><h2 style="font-size:32px;margin-bottom:10px">💌 A few words for you</h2><div id="notes"></div><button id="toPhotos">Next ➜</button></div>
 
 <div id="vPhotos" class="stage"><h2 style="font-size:32px">📸 Sweet Memories</h2><div class="car" id="car"></div><div class="hint">Tap a photo to flip to the next one</div><button id="toAsk">Next ➜</button></div>
 
 <div id="vAsk" class="stage">
   <div class="card" style="max-width:360px;margin-bottom:14px"><div id="bubble" style="font-size:22px;font-weight:600"></div></div>
-  <div id="doll"><svg viewBox="0 0 200 232">
-<g fill="#fff" stroke="#e0d8f0" stroke-width="3"><circle cx="55" cy="42" r="26"/><circle cx="145" cy="42" r="26"/><ellipse cx="72" cy="215" rx="23" ry="14"/><ellipse cx="128" cy="215" rx="23" ry="14"/><ellipse cx="100" cy="165" rx="52" ry="55"/><ellipse cx="40" cy="158" rx="17" ry="31" transform="rotate(25 40 158)"/><ellipse cx="160" cy="158" rx="17" ry="31" transform="rotate(-25 160 158)"/><circle cx="100" cy="85" r="52"/></g>
-<circle cx="55" cy="42" r="13" fill="#ffd9e8"/><circle cx="145" cy="42" r="13" fill="#ffd9e8"/>
-<ellipse cx="100" cy="172" rx="30" ry="34" fill="#fff0f7"/><path d="M100 192C82 178 90 160 100 171C110 160 118 178 100 192Z" fill="#ff4d8d"/>
-<ellipse cx="100" cy="102" rx="23" ry="17" fill="#fff0f7" stroke="#e0d8f0" stroke-width="2"/>
-<circle cx="78" cy="78" r="7" fill="#3b2a4d"/><circle cx="122" cy="78" r="7" fill="#3b2a4d"/><circle cx="80" cy="75" r="2.5" fill="#fff"/><circle cx="124" cy="75" r="2.5" fill="#fff"/>
-<ellipse cx="100" cy="94" rx="7" ry="5" fill="#3b2a4d"/><path id="mouth" d="M91 106 Q100 113 109 106" stroke="#3b2a4d" stroke-width="3" fill="none" stroke-linecap="round"/>
-<circle cx="60" cy="96" r="8" fill="#ffb3d1" opacity=".75"/><circle cx="140" cy="96" r="8" fill="#ffb3d1" opacity=".75"/>
-<g id="tears" style="display:none"><path d="M76 86q-6 13 0 17q6-4 0-17z" fill="#7dd3fc"/><path d="M124 86q6 13 0 17q-6-4 0-17z" fill="#7dd3fc"/></g></svg></div>
+  <div id="doll"><svg viewBox="0 0 240 285">
+<defs><radialGradient id="fur" cx=".38" cy=".3" r=".85"><stop offset="0" stop-color="#fff"/><stop offset=".55" stop-color="#fff"/><stop offset="1" stop-color="#e6e0f3"/></radialGradient>
+<radialGradient id="pk" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#fff0f6"/><stop offset="1" stop-color="#ffc4dc"/></radialGradient>
+<radialGradient id="hrt" cx=".3" cy=".25" r=".9"><stop offset="0" stop-color="#ffd0e2"/><stop offset=".5" stop-color="#ff4d8d"/><stop offset="1" stop-color="#c2185b"/></radialGradient></defs>
+<ellipse cx="120" cy="274" rx="78" ry="9" fill="#0003"/>
+<g fill="url(#fur)" stroke="#ddd5ee" stroke-width="2"><ellipse cx="80" cy="250" rx="33" ry="23"/><ellipse cx="160" cy="250" rx="33" ry="23"/><ellipse cx="120" cy="190" rx="70" ry="74"/><ellipse cx="70" cy="182" rx="21" ry="40" transform="rotate(-35 70 182)"/><ellipse cx="170" cy="182" rx="21" ry="40" transform="rotate(35 170 182)"/><circle cx="56" cy="62" r="31"/><circle cx="184" cy="62" r="31"/><ellipse cx="120" cy="105" rx="70" ry="60"/></g>
+<ellipse cx="80" cy="252" rx="17" ry="12" fill="url(#pk)"/><ellipse cx="160" cy="252" rx="17" ry="12" fill="url(#pk)"/><circle cx="56" cy="62" r="17" fill="url(#pk)"/><circle cx="184" cy="62" r="17" fill="url(#pk)"/>
+<ellipse cx="120" cy="198" rx="44" ry="48" fill="#fff" stroke="#efe9fa" stroke-width="2"/>
+<path d="M120 226C90 204 98 176 120 190C142 176 150 204 120 226Z" fill="url(#hrt)"/><ellipse cx="108" cy="188" rx="6" ry="3.5" fill="#fff" opacity=".7" transform="rotate(-30 108 188)"/>
+<g fill="url(#fur)" stroke="#ddd5ee" stroke-width="2"><ellipse cx="95" cy="204" rx="13" ry="15"/><ellipse cx="145" cy="204" rx="13" ry="15"/></g>
+<ellipse cx="120" cy="124" rx="27" ry="21" fill="#fff" stroke="#efe9fa" stroke-width="2"/>
+<g fill="#2f2140"><ellipse cx="90" cy="96" rx="9.5" ry="12"/><ellipse cx="150" cy="96" rx="9.5" ry="12"/></g>
+<g fill="#fff"><circle cx="93.5" cy="91" r="4"/><circle cx="153.5" cy="91" r="4"/><circle cx="87" cy="101" r="2"/><circle cx="147" cy="101" r="2"/></g>
+<ellipse cx="120" cy="114" rx="10" ry="7" fill="#4a3560"/><ellipse cx="116" cy="111.5" rx="3.5" ry="2" fill="#fff" opacity=".6"/>
+<path d="M120 121V127" stroke="#4a3560" stroke-width="2.5" stroke-linecap="round"/><path id="mouth" d="M107 128Q120 139 133 128" stroke="#4a3560" stroke-width="3" fill="none" stroke-linecap="round"/>
+<ellipse cx="66" cy="120" rx="12" ry="7.5" fill="#ffc2d9" opacity=".8"/><ellipse cx="174" cy="120" rx="12" ry="7.5" fill="#ffc2d9" opacity=".8"/>
+<g id="brows" style="display:none" stroke="#cdbfe4" stroke-width="4" stroke-linecap="round" fill="none"><path d="M76 80L102 72"/><path d="M164 80L138 72"/></g>
+<g id="tears" style="display:none" fill="#7dd3fc"><path d="M86 110q-7 16 0 22q7-6 0-22z"/><path d="M154 110q-7 16 0 22q7-6 0-22z"/></g></svg></div>
   <div style="margin-top:18px"><button id="yes">Yes 💖</button><button id="no" class="alt">No</button></div>
 </div>
 
@@ -177,11 +185,12 @@ const sha = async t => [...new Uint8Array(await crypto.subtle.digest('SHA-256', 
 const baseLink = id => location.origin + location.pathname + '?w=' + id;
 const photoDocs = async id => (await getDocs(collection(db, 'wishes', id, 'photos'))).docs;
 
-// soft twinkling background
-for (let i = 0; i < 46; i++) { const d = document.createElement('div'); d.className = 'fl'; const z = 1.5 + Math.random() * 3;
-  d.style.cssText = `left:${Math.random() * 100}vw;top:${Math.random() * 100}vh;width:${z}px;height:${z}px;animation-duration:${2 + Math.random() * 4}s;animation-delay:${-Math.random() * 5}s`; document.body.append(d); }
-['#ff6ec455', '#7873f555', '#c58bff55', '#38bdf833', '#ffb86b33'].forEach(c => { const d = document.createElement('div'); d.className = 'orb'; const z = 140 + Math.random() * 160;
-  d.style.cssText = `left:${Math.random() * 90}vw;top:${Math.random() * 90}vh;width:${z}px;height:${z}px;animation-delay:${-Math.random() * 18}s;background:radial-gradient(circle,${c},transparent 70%)`; document.body.append(d); });
+// 3D pink background
+const heart = '<svg viewBox="0 0 100 90"><defs><radialGradient id="bh" cx=".3" cy=".25" r=".9"><stop offset="0" stop-color="#fff"/><stop offset=".15" stop-color="#ffc9df"/><stop offset=".6" stop-color="#ff4f95"/><stop offset="1" stop-color="#b3125a"/></radialGradient></defs><path d="M50 85C10 55 2 30 18 14C32 1 46 10 50 24C54 10 68 1 82 14C98 30 90 55 50 85Z" fill="url(#bh)"/><ellipse cx="30" cy="25" rx="11" ry="5" fill="#fff" opacity=".75" transform="rotate(-35 30 25)"/></svg>';
+for (let i = 0; i < 10; i++) { const d = document.createElement('div'); d.className = 'sp'; const z = 24 + Math.random() * 110;
+  d.style.cssText = `left:${Math.random() * 96}vw;top:${Math.random() * 96}vh;width:${z}px;height:${z}px;filter:blur(${z < 50 ? 1.5 : 0}px);animation-duration:${7 + Math.random() * 7}s;animation-delay:${-Math.random() * 10}s`; document.body.append(d); }
+for (let i = 0; i < 7; i++) { const d = document.createElement('div'); d.className = 'ht'; const z = 34 + Math.random() * 50; d.innerHTML = heart;
+  d.style.cssText = `left:${Math.random() * 92}vw;top:${Math.random() * 92}vh;width:${z}px;--r:${Math.random() * 50 - 25}deg;animation-duration:${6 + Math.random() * 6}s;animation-delay:${-Math.random() * 8}s`; document.body.append(d); }
 
 const wid = new URLSearchParams(location.search).get('w');
 if (wid) viewer(wid); else adminInit();
@@ -190,6 +199,14 @@ if (wid) viewer(wid); else adminInit();
 function adminInit() {
   show('adminLogin');
   let photos = [], editId = null, cur = {};
+  const addNote = (v = '') => {
+    const w = document.createElement('div'); w.className = 'nb'; const t = document.createElement('textarea'); t.rows = 2; t.placeholder = 'Write a note...'; t.value = v;
+    const x = document.createElement('b'); x.textContent = '✕'; x.onclick = () => { if ($('#notesBox').children.length > 1) w.remove(); else t.value = ''; };
+    w.append(t, x); $('#notesBox').append(w);
+  };
+  const getNotes = () => [...document.querySelectorAll('#notesBox textarea')].map(t => t.value.trim()).filter(Boolean);
+  const setNotes = a => { $('#notesBox').innerHTML = ''; (a && a.length ? a : ['']).forEach(v => addNote(v)); };
+  $('#addNote').onclick = () => addNote();
   onAuthStateChanged(auth, u => { if (u) { show('admin'); loadList(); } else show('adminLogin'); });
   $('#loginBtn').onclick = async () => {
     $('#lerr').textContent = '';
@@ -213,16 +230,16 @@ function adminInit() {
     photos.push(...await Promise.all(fs.map(resize))); renderPrev();
   };
   const clearForm = () => {
-    ['aName', 'aDate', 'aNotes', 'aPass', 'aQ'].forEach(i => $('#' + i).value = '');
+    ['aName', 'aDate', 'aPass', 'aQ'].forEach(i => $('#' + i).value = ''); setNotes();
     $('#aMode').value = 'none'; $('#rmPw').checked = false; $('#rmWrap').style.display = 'none';
     photos = []; renderPrev(); editId = null; cur = {};
     $('#formTitle').textContent = '🎂 New Wish'; $('#save').textContent = '✨ Create link'; $('#cancel').style.display = 'none';
   };
-  $('#cancel').onclick = clearForm;
+  $('#cancel').onclick = clearForm; setNotes();
 
   $('#save').onclick = async () => {
     const btn = $('#save'); $('#aerr').textContent = '';
-    const notes = $('#aNotes').value.split('\n').map(s => s.trim()).filter(Boolean);
+    const notes = getNotes();
     if (!notes.length && !photos.length) { $('#aerr').textContent = 'Add at least one note or photo.'; return; }
     btn.disabled = true; btn.textContent = 'Saving...';
     try {
@@ -246,7 +263,7 @@ function adminInit() {
 
   async function startEdit(id, w) {
     clearForm(); editId = id; cur = w;
-    $('#aName').value = w.name || ''; $('#aDate').value = w.date || ''; $('#aNotes').value = (w.notes || []).join('\n');
+    $('#aName').value = w.name || ''; $('#aDate').value = w.date || ''; setNotes(w.notes);
     $('#aMode').value = w.mode || 'none'; $('#aQ').value = w.q || '';
     $('#aPass').placeholder = w.pwHash ? 'Leave empty to keep current password' : 'Leave empty for no lock';
     $('#rmWrap').style.display = w.pwHash ? 'block' : 'none';
@@ -336,13 +353,9 @@ async function viewer(id) {
 
   const toNotes = () => {
     if (!w.notes.length) return toPhotos();
-    const lt = $('#lt'), nb = $('#toPhotos'); let ni = 0, ci = 0, tm, cs = [], busy = false;
-    nb.style.visibility = 'hidden'; lt.style.transition = 'opacity .35s'; show('vNotes');
-    const load = () => { busy = false; cs = chars(w.notes[ni]); ci = 0; lt.style.opacity = 1; type(); };
-    const type = () => { lt.textContent = cs.slice(0, ++ci).join(''); tm = setTimeout(ci < cs.length ? type : next, ci < cs.length ? (cs.length > 120 ? 15 : 38) : 1800); };
-    const next = () => { if (++ni >= w.notes.length) { nb.style.visibility = 'visible'; return; } busy = true; lt.style.opacity = 0; tm = setTimeout(load, 350); };
-    $('#letter').onclick = () => { if (busy || ni >= w.notes.length) return; clearTimeout(tm); if (ci < cs.length) { ci = cs.length; lt.textContent = cs.join(''); tm = setTimeout(next, 1100); } else next(); };
-    load();
+    const n = $('#notes'); n.innerHTML = '';
+    w.notes.forEach((t, i) => { const d = document.createElement('div'); d.className = 'note'; d.style.animationDelay = i * .6 + 's'; d.textContent = t; n.append(d); });
+    show('vNotes');
   };
   const place = () => {
     const n = photos.length;
@@ -373,7 +386,7 @@ async function viewer(id) {
 
   const nosTxt = ['Are you sure? 🥺', 'Please... 😢', 'Pretty please? 🥹', 'I will be so sad... 😭', 'Last chance, please? 💔'];
   const log = a => setDoc(doc(db, 'wishes', id, 'responses', sid), { mode: w.mode, nos, answer: a || '', at: Date.now() }).catch(() => {});
-  const sad = () => { const sd = nos >= 2; $('#tears').style.display = sd ? '' : 'none'; $('#mouth').setAttribute('d', sd ? 'M90 111 Q100 102 110 111' : 'M91 106 Q100 113 109 106'); };
+  const sad = () => { const sd = nos >= 2; ['#tears', '#brows'].forEach(i => $(i).style.display = sd ? '' : 'none'); $('#mouth').setAttribute('d', sd ? 'M108 134Q120 123 132 134' : 'M107 128Q120 139 133 128'); };
   const toAsk = () => {
     clearInterval(timer);
     if (!w.mode || w.mode === 'none') return toEnd();
@@ -383,7 +396,7 @@ async function viewer(id) {
     show('vAsk');
   };
   $('#no').onclick = () => {
-    nos++; sad(); $('#doll').style.width = `min(88vw,${170 + nos * 40}px)`; log();
+    nos++; sad(); $('#doll').style.width = `min(94vw,${260 + nos * 45}px)`; log();
     if (nos >= 5) { $('#no').style.display = 'none'; $('#bubble').textContent = 'Okay, you can only press Yes now 😤💖'; $('#yes').style.fontSize = '26px'; }
     else $('#bubble').textContent = nosTxt[nos - 1];
   };
