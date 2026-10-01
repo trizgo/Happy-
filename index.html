@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -7,56 +7,67 @@
 <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&family=Pacifico&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0}
-body{font-family:'Hind Siliguri',sans-serif;min-height:100vh;color:#fff;background:radial-gradient(circle at 20% 10%,#7b2ff7 0,transparent 45%),radial-gradient(circle at 80% 90%,#f107a3 0,transparent 45%),#1a0b2e;overflow-x:hidden}
-.stage{display:none;min-height:100vh;padding:24px 16px;flex-direction:column;align-items:center;justify-content:center;text-align:center}
-.stage.on{display:flex;animation:fade .7s}
-@keyframes fade{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:none}}
-.card{background:rgba(255,255,255,.12);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.25);border-radius:22px;padding:22px;width:100%;max-width:440px;box-shadow:0 20px 50px rgba(0,0,0,.3)}
-h1,h2{font-family:'Pacifico',cursive;font-weight:400}
-input,textarea{width:100%;padding:12px 14px;margin:6px 0;border-radius:12px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.14);color:#fff;font:inherit;outline:none}
-input::placeholder,textarea::placeholder{color:#ffffffaa}
-label{display:block;text-align:left;font-size:14px;margin-top:10px;opacity:.9}
-button,.btn{cursor:pointer;border:0;border-radius:30px;padding:12px 26px;font:600 16px 'Hind Siliguri';color:#fff;background:linear-gradient(135deg,#ff6ec4,#7873f5);box-shadow:0 8px 20px rgba(255,110,196,.4);margin:8px 4px;transition:.2s}
-button:hover{transform:translateY(-2px) scale(1.03)}
-button.sm{padding:6px 14px;font-size:13px;margin:2px}
-.err{color:#ffb3c1;min-height:20px;font-size:14px}
-/* admin */
-#admin .card{max-width:560px;text-align:left}
-.row{display:flex;gap:8px;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid #ffffff22;font-size:14px}
-.prev{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}.prev img{width:56px;height:56px;object-fit:cover;border-radius:8px}
-.link{word-break:break-all;background:#0004;padding:10px;border-radius:10px;margin:8px 0;font-size:14px}
+body{font-family:'Hind Siliguri',sans-serif;min-height:100vh;color:#fff;background:#150a2b;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:0;background:radial-gradient(600px at 15% 15%,#7b2ff766,transparent),radial-gradient(520px at 85% 85%,#f107a366,transparent),radial-gradient(420px at 85% 12%,#00c6ff33,transparent);animation:bg 10s infinite alternate}
+@keyframes bg{to{transform:scale(1.2) translateY(-25px)}}
+.fl{position:fixed;bottom:-50px;z-index:0;opacity:.55;pointer-events:none;animation:rise linear infinite}
+@keyframes rise{to{transform:translateY(-120vh) rotate(40deg)}}
+.stage{display:none;position:relative;z-index:1;min-height:100vh;padding:22px 14px;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.stage.on{display:flex;animation:fade .45s}
+@keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.card{background:rgba(255,255,255,.12);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.28);border-radius:24px;padding:22px;width:100%;max-width:440px;box-shadow:0 20px 50px rgba(0,0,0,.35)}
+h2{font-family:'Pacifico',cursive;font-weight:400;text-shadow:0 4px 18px #f107a399}
+input,textarea,select{width:100%;padding:12px 14px;margin:6px 0;border-radius:12px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.14);color:#fff;font:inherit;outline:none}
+select option{color:#222}
+input[type=checkbox]{width:auto;margin:0 6px 0 0}
+input::placeholder,textarea::placeholder{color:#fff9}
+label{display:block;text-align:left;font-size:14px;margin-top:12px;opacity:.9}
+button{cursor:pointer;border:0;border-radius:30px;padding:12px 26px;font:600 16px 'Hind Siliguri';color:#fff;background:linear-gradient(135deg,#ff6ec4,#7873f5);box-shadow:0 8px 20px rgba(255,110,196,.4);margin:8px 4px;transition:.2s}
+button:hover{transform:translateY(-2px) scale(1.04)}
+button.sm{padding:6px 13px;font-size:13px;margin:2px}
+button.alt{background:rgba(255,255,255,.2);box-shadow:none}
+.err{color:#ffb3c1;min-height:18px;font-size:14px}
+#admin .card,#adminLogin .card{max-width:560px;text-align:left}
+.row{display:flex;gap:8px;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid #fff2;font-size:15px}
+.prev{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.ph{position:relative}.ph img{width:64px;height:64px;object-fit:cover;border-radius:10px;display:block}
+.ph b{position:absolute;top:-6px;right:-6px;width:20px;height:20px;border-radius:50%;background:#f43f5e;font-size:11px;line-height:20px;text-align:center;cursor:pointer}
+.link{word-break:break-all;background:#0005;padding:10px;border-radius:10px;margin:10px 0;font-size:14px}
 /* cake */
-.cake{display:flex;flex-direction:column;align-items:center;margin:10px 0}
-.tier{border-radius:14px 14px 6px 6px;position:relative;opacity:0;transform:translateY(-320px);box-shadow:inset 0 -8px 0 #0002}
-.tier::before{content:"";position:absolute;top:0;left:0;right:0;height:16px;border-radius:14px 14px 40% 40%;background:#fff;opacity:.92}
-.t3{width:130px;height:46px;background:#ff8fb1}.t2{width:190px;height:56px;background:#c58bff}.t1{width:250px;height:66px;background:#ffb86b}
-.plate{width:290px;height:12px;border-radius:50%;background:#e8e8f5;opacity:0}
-.build .tier,.build .plate{animation:drop .7s cubic-bezier(.3,1.4,.5,1) forwards}
-.build .t1{animation-delay:.2s}.build .t2{animation-delay:1s}.build .t3{animation-delay:1.8s}.build .plate{animation:fade .5s forwards}
+.cake{display:flex;flex-direction:column;align-items:center;margin:8px 0}
+.tier{border-radius:14px 14px 6px 6px;position:relative;opacity:0;transform:translateY(-300px);box-shadow:inset 0 -10px 0 #0002,0 6px 14px #0003;background-image:radial-gradient(circle,#fff 2px,transparent 3px),radial-gradient(circle,#ffe14d 2px,transparent 3px);background-size:26px 20px,34px 24px;background-position:4px 26px,14px 38px}
+.tier::before{content:"";position:absolute;top:0;left:0;right:0;height:18px;border-radius:14px 14px 50% 50%/14px 14px 100% 100%;background:#fff;opacity:.95}
+.t3{width:130px;height:48px;background-color:#ff8fb1}.t2{width:190px;height:58px;background-color:#c58bff}.t1{width:250px;height:68px;background-color:#ffb86b}
+.plate{width:300px;height:14px;border-radius:50%;background:linear-gradient(#fff,#cfd0ee);opacity:0}
+.build .tier{animation:drop .5s cubic-bezier(.3,1.4,.5,1) forwards}
+.build .t1{animation-delay:.1s}.build .t2{animation-delay:.6s}.build .t3{animation-delay:1.1s}.build .plate{animation:fade .4s forwards}
 @keyframes drop{to{opacity:1;transform:none}}
-.candles{display:flex;gap:16px;height:70px;align-items:flex-end;justify-content:center}
-.candle{width:10px;height:38px;border-radius:3px;background:repeating-linear-gradient(45deg,#fff 0 6px,#ff6ec4 6px 12px);position:relative;cursor:pointer;animation:cdrop .6s cubic-bezier(.3,1.5,.5,1) backwards}
-@keyframes cdrop{from{transform:translateY(-200px);opacity:0}}
-.candle::before{content:"";position:absolute;inset:-14px -14px 0}
+.candles{display:flex;gap:16px;height:72px;align-items:flex-end;justify-content:center}
+.candle{width:10px;height:38px;border-radius:3px;background:repeating-linear-gradient(45deg,#fff 0 6px,#ff6ec4 6px 12px);position:relative;cursor:pointer;animation:cdrop .45s cubic-bezier(.3,1.5,.5,1) backwards}
+@keyframes cdrop{from{transform:translateY(-180px);opacity:0}}
+.candle::before{content:"";position:absolute;inset:-18px -14px 0}
 .flame{position:absolute;left:50%;top:-24px;width:14px;height:24px;margin-left:-7px;border-radius:50% 50% 50% 50%/70% 70% 30% 30%;background:radial-gradient(#fff 10%,#ffd23f 45%,#ff7a00);box-shadow:0 0 18px 6px #ffb34777;animation:flick .25s infinite alternate;transform-origin:bottom}
-@keyframes flick{to{transform:scale(1.1,.93) rotate(3deg)}}
+@keyframes flick{to{transform:scale(1.1,.92) rotate(3deg)}}
 .candle.off .flame{display:none}
-.candle.off::after{content:"";position:absolute;left:50%;top:-10px;width:6px;height:6px;margin-left:-3px;border-radius:50%;background:#fff8;animation:smoke 1.6s forwards}
+.candle.off::after{content:"";position:absolute;left:50%;top:-10px;width:6px;height:6px;margin-left:-3px;border-radius:50%;background:#fff8;animation:smoke 1.4s forwards}
 @keyframes smoke{to{transform:translateY(-60px) scale(5);opacity:0}}
 /* notes */
-.note{background:#fffbe8;color:#4a3b2a;padding:16px 18px;border-radius:6px;margin:12px auto;max-width:420px;box-shadow:0 8px 20px #0004;font-size:19px;line-height:1.6;opacity:0;animation:fade .8s forwards;position:relative}
-.note:nth-child(odd){transform:rotate(-1.5deg)}.note:nth-child(even){transform:rotate(1.5deg)}
-/* gallery */
-.gal{display:flex;flex-wrap:wrap;justify-content:center;gap:26px 18px;max-width:900px;padding:20px 0}
-.pol{background:#fff;padding:10px 10px 34px;width:min(240px,42vw);box-shadow:0 12px 28px #0006;position:relative;opacity:0;animation:pop .8s cubic-bezier(.3,1.4,.5,1) forwards}
-.pol img{width:100%;aspect-ratio:1;object-fit:cover;display:block}
-.pol::before{content:"";position:absolute;top:-10px;left:50%;width:70px;height:20px;margin-left:-35px;background:#ffd6e8cc;transform:rotate(-4deg)}
-@keyframes pop{from{opacity:0;transform:scale(.4) rotate(0)}to{opacity:1;transform:rotate(var(--r))}}
-.pol{transform:rotate(var(--r))}
-.conf{position:fixed;top:-20px;width:9px;height:14px;z-index:9;animation:fall linear forwards;pointer-events:none}
-@keyframes fall{to{transform:translateY(110vh) rotate(720deg)}}
-.big{font-size:clamp(34px,9vw,60px);line-height:1.3;text-shadow:0 4px 20px #f107a3}
-.hint{opacity:.85;margin:10px;min-height:24px}
+.note{background:linear-gradient(135deg,#fffbe8,#ffeef6);color:#4a3b2a;padding:16px 20px;border-radius:14px;margin:10px auto;max-width:420px;box-shadow:0 10px 24px #0005;font-size:19px;line-height:1.6;opacity:0;animation:fade .6s forwards}
+.note:nth-child(odd){rotate:-1.5deg}.note:nth-child(even){rotate:1.5deg}
+/* 3D carousel */
+.car{position:relative;width:min(94vw,560px);height:min(82vw,410px);perspective:1100px;margin:18px auto}
+.slide{position:absolute;top:0;left:22%;width:56%;height:100%;background:#fff;padding:8px 8px 30px;border-radius:6px;box-shadow:0 18px 40px #000a;transition:transform .8s cubic-bezier(.3,.8,.3,1),opacity .8s;cursor:pointer;overflow:hidden}
+.slide img{width:100%;height:100%;object-fit:cover;display:block;border-radius:3px}
+.slide.c img{animation:kb 4s ease-out forwards}
+@keyframes kb{to{transform:scale(1.13)}}
+.nav button{padding:8px 20px}
+.conf{position:fixed;top:-30px;width:9px;height:14px;z-index:9;animation:fall linear forwards;pointer-events:none}
+@keyframes fall{to{transform:translateY(112vh) rotate(720deg)}}
+.big{font-size:clamp(34px,9vw,60px);line-height:1.3}
+.hint{opacity:.9;margin:8px;min-height:24px}
+#doll{transition:font-size .4s cubic-bezier(.3,1.6,.5,1);font-size:70px;line-height:1.1;animation:bob 1.6s infinite alternate}
+@keyframes bob{to{transform:translateY(-8px) rotate(3deg)}}
+#yes{transition:.3s}
 </style>
 </head>
 <body>
@@ -64,34 +75,40 @@ button.sm{padding:6px 14px;font-size:13px;margin:2px}
 <!-- ===== ADMIN ===== -->
 <div id="adminLogin" class="stage">
   <div class="card">
-    <h2 style="font-size:30px">🔐 Admin Login</h2>
-    <input id="em" type="email" placeholder="Gmail">
+    <h2 style="font-size:32px;text-align:center">🔐 Admin Login</h2>
+    <input id="em" type="email" placeholder="Email">
     <input id="pw" type="password" placeholder="Password">
     <div class="err" id="lerr"></div>
-    <button id="loginBtn">Login</button>
+    <button id="loginBtn" style="width:100%">Login</button>
   </div>
 </div>
 
 <div id="admin" class="stage" style="justify-content:flex-start">
   <div class="card">
-    <div class="row" style="border:0"><h2 style="font-size:26px">🎂 Dashboard</h2><button class="sm" id="logout">Logout</button></div>
-    <label>যার জন্মদিন (নাম) — ঐচ্ছিক</label><input id="aName" placeholder="যেমন: রিয়া">
-    <label>জন্মদিনের তারিখ — ঐচ্ছিক</label><input id="aDate" type="date">
-    <label>নোট (প্রতি লাইনে একটি করে নোট)</label><textarea id="aNotes" rows="5" placeholder="শুভ জন্মদিন! 🎉&#10;তুমি অনেক স্পেশাল..."></textarea>
-    <label>ছবি (একাধিক বাছাই করা যাবে)</label><input id="aPhotos" type="file" accept="image/*" multiple>
+    <div class="row" style="border:0"><h2 style="font-size:26px" id="formTitle">🎂 New Wish</h2><button class="sm alt" id="logout">Logout</button></div>
+    <label>Birthday person's name (optional)</label><input id="aName" placeholder="e.g. Riya">
+    <label>Birthday date (optional)</label><input id="aDate" type="date">
+    <label>Notes (one note per line — Bengali or English)</label><textarea id="aNotes" rows="5" placeholder="Happy Birthday! 🎉&#10;You are so special..."></textarea>
+    <label>Photos <span id="pc"></span></label>
     <div class="prev" id="prev"></div>
-    <label>পাসওয়ার্ড লক (ফাঁকা রাখলে লক থাকবে না)</label><input id="aPass" placeholder="ঐচ্ছিক পাসওয়ার্ড">
+    <button type="button" class="sm" id="addBtn">+ Add photos</button>
+    <input id="aPhotos" type="file" accept="image/*" multiple hidden>
+    <label>Lock password (optional)</label><input id="aPass" placeholder="Leave empty for no lock">
+    <label id="rmWrap" style="display:none"><input type="checkbox" id="rmPw">Remove existing password</label>
+    <label>Final surprise</label>
+    <select id="aMode"><option value="none">None</option><option value="sorry">Sorry 🥺</option><option value="love">I Love You ❤️</option></select>
+    <input id="aQ" placeholder="Custom question (optional) e.g. Will you forgive me?">
     <div class="err" id="aerr"></div>
-    <button id="save">✨ লিংক তৈরি করো</button>
+    <button id="save">✨ Create link</button><button class="alt" id="cancel" style="display:none">Cancel edit</button>
     <div id="result"></div>
-    <h3 style="margin-top:20px">আগের লিংকগুলো</h3>
+    <h3 style="margin-top:22px">Your wishes</h3>
     <div id="list"></div>
   </div>
 </div>
 
 <!-- ===== VIEWER ===== -->
-<div id="vLoad" class="stage"><h2>🎁 লোড হচ্ছে...</h2></div>
-<div id="vErr" class="stage"><h2>😕 লিংকটি পাওয়া যায়নি</h2></div>
+<div id="vLoad" class="stage"><h2 style="font-size:34px">🎁 Loading...</h2></div>
+<div id="vErr" class="stage"><h2 style="font-size:30px">😕 Link not found</h2></div>
 
 <div id="vCake" class="stage">
   <h2 id="vTitle" class="big" style="margin-bottom:6px"></h2>
@@ -101,17 +118,35 @@ button.sm{padding:6px 14px;font-size:13px;margin:2px}
   </div>
   <div class="hint" id="hint"></div>
   <div class="card" id="lock" style="display:none;max-width:340px">
-    <div style="font-size:20px">🔒 পাসওয়ার্ড দাও</div>
-    <input id="lpw" type="password" placeholder="পাসওয়ার্ড">
+    <div style="font-size:20px">🔒 Enter password</div>
+    <input id="lpw" type="password" placeholder="Password">
     <div class="err" id="lock-err"></div>
-    <button id="unlock">আনলক করো</button>
+    <button id="unlock">Unlock</button>
   </div>
-  <button id="toNotes" style="display:none">পরবর্তী ➜</button>
+  <button id="toNotes" style="display:none">Next ➜</button>
 </div>
 
-<div id="vNotes" class="stage"><h2 style="font-size:32px;margin-bottom:10px">💌 তোমার জন্য কিছু কথা</h2><div id="notes"></div><button id="toPhotos">পরবর্তী ➜</button></div>
-<div id="vPhotos" class="stage"><h2 style="font-size:32px">📸 মধুর স্মৃতি</h2><div class="gal" id="gal"></div><button id="toEnd">পরবর্তী ➜</button></div>
-<div id="vEnd" class="stage"><div class="big" style="font-family:Pacifico">Happy Birthday</div><div class="big" id="endName" style="margin:10px 0"></div><div id="endDate" style="font-size:20px"></div><div style="font-size:60px;margin-top:14px">🎂🎉💖</div><button id="replay">🔁 আবার দেখো</button></div>
+<div id="vNotes" class="stage"><h2 style="font-size:32px;margin-bottom:10px">💌 A few words for you</h2><div id="notes"></div><button id="toPhotos">Next ➜</button></div>
+
+<div id="vPhotos" class="stage"><h2 style="font-size:32px">📸 Sweet Memories</h2>
+  <div class="car" id="car"></div>
+  <div class="nav"><button class="alt" id="prevS">‹</button><button class="alt" id="nextS">›</button></div>
+  <button id="toAsk">Next ➜</button></div>
+
+<div id="vAsk" class="stage">
+  <div class="card" style="max-width:360px;margin-bottom:14px"><div id="bubble" style="font-size:22px;font-weight:600"></div></div>
+  <div id="doll">🧸</div>
+  <div style="margin-top:18px"><button id="yes">Yes 💖</button><button id="no" class="alt">No</button></div>
+</div>
+
+<div id="vEnd" class="stage">
+  <div class="big" style="font-family:Pacifico">Happy Birthday</div>
+  <div class="big" id="endName" style="margin:8px 0;font-family:Pacifico"></div>
+  <div id="endDate" style="font-size:20px"></div>
+  <div id="endMsg" style="font-size:24px;margin-top:12px;font-weight:600"></div>
+  <div style="font-size:60px;margin-top:12px">🎂🎉💖</div>
+  <button id="replay">🔁 Watch again</button>
+</div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -131,77 +166,112 @@ const $ = s => document.querySelector(s);
 const show = id => { document.querySelectorAll('.stage').forEach(e => e.classList.remove('on')); $('#' + id).classList.add('on'); scrollTo(0, 0); };
 const sha = async t => [...new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(t)))].map(b => b.toString(16).padStart(2, '0')).join('');
 const baseLink = id => location.origin + location.pathname + '?w=' + id;
+const photoDocs = async id => (await getDocs(collection(db, 'wishes', id, 'photos'))).docs;
 
-/* ================= ROUTER ================= */
+// floating background
+['🎈','💖','✨','🎀','🌸','⭐'].forEach((e, k) => { for (let i = 0; i < 3; i++) {
+  const d = document.createElement('div'); d.className = 'fl'; d.textContent = e;
+  d.style.left = Math.random() * 96 + 'vw'; d.style.fontSize = 16 + Math.random() * 22 + 'px';
+  d.style.animationDuration = 9 + Math.random() * 10 + 's'; d.style.animationDelay = -Math.random() * 14 + 's'; document.body.append(d); } });
+
 const wid = new URLSearchParams(location.search).get('w');
 if (wid) viewer(wid); else adminInit();
 
 /* ================= ADMIN ================= */
 function adminInit() {
   show('adminLogin');
+  let photos = [], editId = null, cur = {};
   onAuthStateChanged(auth, u => { if (u) { show('admin'); loadList(); } else show('adminLogin'); });
   $('#loginBtn').onclick = async () => {
     $('#lerr').textContent = '';
     try { await signInWithEmailAndPassword(auth, $('#em').value.trim(), $('#pw').value); }
-    catch (e) { $('#lerr').textContent = 'ইমেইল বা পাসওয়ার্ড ভুল!'; }
+    catch (e) { $('#lerr').textContent = 'Wrong email or password!'; }
   };
   $('#logout').onclick = () => signOut(auth);
-  let photos = [];
-  $('#aPhotos').onchange = async e => {
-    photos = []; $('#prev').innerHTML = '';
-    for (const f of e.target.files) {
-      const d = await resize(f); photos.push(d);
-      const i = new Image(); i.src = d; $('#prev').append(i);
-    }
+
+  const renderPrev = () => {
+    $('#prev').innerHTML = '';
+    photos.forEach((p, i) => {
+      const w = document.createElement('div'); w.className = 'ph';
+      const im = new Image(); im.src = p; const x = document.createElement('b'); x.textContent = '✕';
+      x.onclick = () => { photos.splice(i, 1); renderPrev(); }; w.append(im, x); $('#prev').append(w);
+    });
+    $('#pc').textContent = photos.length ? '(' + photos.length + ' selected)' : '';
   };
+  $('#addBtn').onclick = () => $('#aPhotos').click();
+  $('#aPhotos').onchange = async e => {
+    const fs = [...e.target.files]; e.target.value = '';
+    photos.push(...await Promise.all(fs.map(resize))); renderPrev();
+  };
+  const clearForm = () => {
+    ['aName', 'aDate', 'aNotes', 'aPass', 'aQ'].forEach(i => $('#' + i).value = '');
+    $('#aMode').value = 'none'; $('#rmPw').checked = false; $('#rmWrap').style.display = 'none';
+    photos = []; renderPrev(); editId = null; cur = {};
+    $('#formTitle').textContent = '🎂 New Wish'; $('#save').textContent = '✨ Create link'; $('#cancel').style.display = 'none';
+  };
+  $('#cancel').onclick = clearForm;
+
   $('#save').onclick = async () => {
     const btn = $('#save'); $('#aerr').textContent = '';
     const notes = $('#aNotes').value.split('\n').map(s => s.trim()).filter(Boolean);
-    if (!notes.length && !photos.length) { $('#aerr').textContent = 'অন্তত একটি নোট বা ছবি দাও।'; return; }
-    btn.disabled = true; btn.textContent = 'সেভ হচ্ছে...';
+    if (!notes.length && !photos.length) { $('#aerr').textContent = 'Add at least one note or photo.'; return; }
+    btn.disabled = true; btn.textContent = 'Saving...';
     try {
-      const id = [...crypto.getRandomValues(new Uint8Array(6))].map(b => (b % 36).toString(36)).join('');
+      const id = editId || [...crypto.getRandomValues(new Uint8Array(6))].map(b => (b % 36).toString(36)).join('');
       const pass = $('#aPass').value.trim();
+      let pwHash = cur.pwHash || '';
+      if (pass) pwHash = await sha(pass); else if ($('#rmPw').checked) pwHash = '';
       await setDoc(doc(db, 'wishes', id), {
-        name: $('#aName').value.trim(), date: $('#aDate').value, notes,
-        pwHash: pass ? await sha(pass) : '', createdAt: Date.now()
+        name: $('#aName').value.trim(), date: $('#aDate').value, notes, pwHash,
+        mode: $('#aMode').value, q: $('#aQ').value.trim(), createdAt: cur.createdAt || Date.now()
       });
-      for (let i = 0; i < photos.length; i++) await addDoc(collection(db, 'wishes', id, 'photos'), { data: photos[i], i });
-      $('#result').innerHTML = '<div class="link" id="lk"></div><button class="sm" id="cp">📋 কপি করো</button>';
+      if (editId) await Promise.all((await photoDocs(id)).map(d => deleteDoc(d.ref)));
+      await Promise.all(photos.map((data, i) => addDoc(collection(db, 'wishes', id, 'photos'), { data, i })));
+      $('#result').innerHTML = '<div class="link" id="lk"></div><button class="sm" id="cp">📋 Copy link</button>';
       $('#lk').textContent = baseLink(id);
-      $('#cp').onclick = () => { navigator.clipboard.writeText(baseLink(id)); $('#cp').textContent = '✅ কপি হয়েছে'; };
-      loadList();
-    } catch (e) { $('#aerr').textContent = 'সমস্যা: ' + e.message; }
-    btn.disabled = false; btn.textContent = '✨ লিংক তৈরি করো';
+      $('#cp').onclick = () => { navigator.clipboard.writeText(baseLink(id)); $('#cp').textContent = '✅ Copied'; };
+      clearForm(); loadList();
+    } catch (e) { $('#aerr').textContent = 'Error: ' + e.message; }
+    btn.disabled = false; btn.textContent = editId ? '💾 Save changes' : '✨ Create link';
   };
+
+  async function startEdit(id, w) {
+    clearForm(); editId = id; cur = w;
+    $('#aName').value = w.name || ''; $('#aDate').value = w.date || ''; $('#aNotes').value = (w.notes || []).join('\n');
+    $('#aMode').value = w.mode || 'none'; $('#aQ').value = w.q || '';
+    $('#aPass').placeholder = w.pwHash ? 'Leave empty to keep current password' : 'Leave empty for no lock';
+    $('#rmWrap').style.display = w.pwHash ? 'block' : 'none';
+    $('#formTitle').textContent = '✏️ Edit Wish'; $('#save').textContent = '💾 Save changes'; $('#cancel').style.display = 'inline-block';
+    scrollTo({ top: 0, behavior: 'smooth' });
+    photos = (await photoDocs(id)).map(d => d.data()).sort((a, b) => a.i - b.i).map(p => p.data); renderPrev();
+  }
+  async function loadList() {
+    const l = $('#list'); l.innerHTML = '';
+    const snap = await getDocs(query(collection(db, 'wishes'), orderBy('createdAt', 'desc')));
+    snap.forEach(d => {
+      const w = d.data(), r = document.createElement('div'); r.className = 'row';
+      const t = document.createElement('span');
+      t.textContent = (w.name || 'Unnamed') + (w.pwHash ? ' 🔒' : '') + (w.mode === 'sorry' ? ' 🥺' : w.mode === 'love' ? ' ❤️' : '');
+      const b = document.createElement('span');
+      const mk = (txt, fn) => { const x = document.createElement('button'); x.className = 'sm'; x.textContent = txt; x.onclick = () => fn(x); b.append(x); };
+      mk('Link', x => { navigator.clipboard.writeText(baseLink(d.id)); x.textContent = '✅'; });
+      mk('Edit', () => startEdit(d.id, w));
+      mk('🗑', async () => {
+        if (!confirm('Delete this wish?')) return;
+        await Promise.all((await photoDocs(d.id)).map(p => deleteDoc(p.ref))); await deleteDoc(d.ref); loadList();
+      });
+      r.append(t, b); l.append(r);
+    });
+  }
 }
 function resize(file) {
   return new Promise(res => {
     const r = new FileReader();
     r.onload = () => { const im = new Image(); im.onload = () => {
-      const s = Math.min(1, 800 / Math.max(im.width, im.height)), c = document.createElement('canvas');
+      const s = Math.min(1, 720 / Math.max(im.width, im.height)), c = document.createElement('canvas');
       c.width = im.width * s; c.height = im.height * s; c.getContext('2d').drawImage(im, 0, 0, c.width, c.height);
       res(c.toDataURL('image/jpeg', .7)); }; im.src = r.result; };
     r.readAsDataURL(file);
-  });
-}
-async function loadList() {
-  const l = $('#list'); l.innerHTML = '';
-  const snap = await getDocs(query(collection(db, 'wishes'), orderBy('createdAt', 'desc')));
-  snap.forEach(d => {
-    const w = d.data(), r = document.createElement('div'); r.className = 'row';
-    const t = document.createElement('span'); t.textContent = (w.name || 'নামহীন') + (w.pwHash ? ' 🔒' : '');
-    const b = document.createElement('span');
-    const c = document.createElement('button'); c.className = 'sm'; c.textContent = 'লিংক';
-    c.onclick = () => { navigator.clipboard.writeText(baseLink(d.id)); c.textContent = '✅'; };
-    const x = document.createElement('button'); x.className = 'sm'; x.textContent = '🗑';
-    x.onclick = async () => {
-      if (!confirm('মুছে ফেলবে?')) return;
-      const ph = await getDocs(collection(db, 'wishes', d.id, 'photos'));
-      for (const p of ph.docs) await deleteDoc(p.ref);
-      await deleteDoc(d.ref); loadList();
-    };
-    b.append(c, x); r.append(t, b); l.append(r);
   });
 }
 
@@ -210,72 +280,100 @@ async function viewer(id) {
   show('vLoad');
   let w, photos = [];
   try {
-    const s = await getDoc(doc(db, 'wishes', id));
+    const [s, ps] = await Promise.all([getDoc(doc(db, 'wishes', id)), photoDocs(id)]);
     if (!s.exists()) return show('vErr');
-    w = s.data();
-    const ps = await getDocs(collection(db, 'wishes', id, 'photos'));
-    photos = ps.docs.map(d => d.data()).sort((a, b) => a.i - b.i).map(p => p.data);
+    w = s.data(); photos = ps.map(d => d.data()).sort((a, b) => a.i - b.i).map(p => p.data);
   } catch (e) { return show('vErr'); }
+  let timer, cur = 0, nos = 0;
 
   const start = () => {
+    clearInterval(timer);
     $('#vTitle').textContent = w.name ? '🎂 ' + w.name : '';
     $('#candles').innerHTML = ''; $('#hint').textContent = '';
     $('#lock').style.display = 'none'; $('#toNotes').style.display = 'none';
     const cake = $('#cake'); cake.classList.remove('build'); void cake.offsetWidth; cake.classList.add('build');
     show('vCake');
-    setTimeout(() => w.pwHash ? ($('#lock').style.display = 'block') : candles(), 2900);
+    setTimeout(() => w.pwHash ? ($('#lock').style.display = 'block') : candles(), 1700);
   };
   const candles = () => {
     const box = $('#candles'); let left = 5;
-    $('#hint').textContent = '🕯️ মোমবাতিগুলোতে ক্লিক করে নিভিয়ে দাও';
+    $('#hint').textContent = '🕯️ Tap the candles to blow them out';
     for (let i = 0; i < 5; i++) {
-      const c = document.createElement('div'); c.className = 'candle'; c.style.animationDelay = i * .15 + 's';
+      const c = document.createElement('div'); c.className = 'candle'; c.style.animationDelay = i * .08 + 's';
       c.innerHTML = '<div class="flame"></div>';
       c.onclick = () => {
         if (c.classList.contains('off')) return; c.classList.add('off');
-        if (--left === 0) { $('#hint').textContent = '🎉 শুভ জন্মদিন! 🎉'; confetti(); $('#toNotes').style.display = 'inline-block'; }
+        if (--left === 0) { $('#hint').textContent = '🎉 Happy Birthday! 🎉'; confetti(); $('#toNotes').style.display = 'inline-block'; }
       };
       box.append(c);
     }
   };
   $('#unlock').onclick = async () => {
     if (await sha($('#lpw').value.trim()) === w.pwHash) { $('#lock').style.display = 'none'; candles(); }
-    else { $('#lock-err').textContent = 'ভুল পাসওয়ার্ড, আবার চেষ্টা করো'; }
+    else $('#lock-err').textContent = 'Wrong password, try again';
   };
   $('#lpw').onkeydown = e => { if (e.key === 'Enter') $('#unlock').click(); };
 
   const toNotes = () => {
     if (!w.notes.length) return toPhotos();
     const n = $('#notes'); n.innerHTML = '';
-    w.notes.forEach((t, i) => { const d = document.createElement('div'); d.className = 'note'; d.style.animationDelay = i * .9 + 's'; d.textContent = t; n.append(d); });
+    w.notes.forEach((t, i) => { const d = document.createElement('div'); d.className = 'note'; d.style.animationDelay = i * .6 + 's'; d.textContent = t; n.append(d); });
     show('vNotes');
   };
-  const toPhotos = () => {
-    if (!photos.length) return toEnd();
-    const g = $('#gal'); g.innerHTML = '';
-    photos.forEach((p, i) => {
-      const d = document.createElement('div'); d.className = 'pol';
-      d.style.setProperty('--r', (Math.random() * 16 - 8).toFixed(1) + 'deg');
-      d.style.animationDelay = i * .5 + 's'; d.style.marginTop = (Math.random() * 20) + 'px';
-      const im = new Image(); im.src = p; d.append(im); g.append(d);
+  const place = () => {
+    const n = photos.length, half = n / 2;
+    [...$('#car').children].forEach((el, i) => {
+      let d = (i - cur) % n; if (d > half) d -= n; if (d < -half) d += n;
+      const a = Math.abs(d);
+      el.style.transform = `translateX(${d * 62}%) translateZ(${-a * 150}px) rotateY(${-d * 40}deg) scale(${1 - a * .06})`;
+      el.style.opacity = a > 2 ? 0 : 1 - a * .22; el.style.zIndex = 10 - a; el.classList.toggle('c', d === 0);
     });
-    show('vPhotos');
   };
-  const toEnd = () => {
+  const go = k => { cur = (cur + k + photos.length) % photos.length; place(); };
+  const toPhotos = () => {
+    if (!photos.length) return toAsk();
+    const car = $('#car'); car.innerHTML = ''; cur = 0;
+    photos.forEach(p => { const d = document.createElement('div'); d.className = 'slide'; const im = new Image(); im.src = p; d.append(im); d.onclick = () => go(1); car.append(d); });
+    show('vPhotos'); place();
+    clearInterval(timer); if (photos.length > 1) timer = setInterval(() => go(1), 2800);
+  };
+  $('#prevS').onclick = () => { clearInterval(timer); go(-1); };
+  $('#nextS').onclick = () => { clearInterval(timer); go(1); };
+
+  const toAsk = () => {
+    clearInterval(timer);
+    if (!w.mode || w.mode === 'none') return toEnd();
+    nos = 0; $('#doll').style.fontSize = '70px'; $('#no').style.display = ''; $('#yes').style.fontSize = '';
+    $('#bubble').textContent = w.q || (w.mode === 'sorry' ? 'Will you forgive me? 🥺' : 'I love you ❤️ Do you love me too?');
+    show('vAsk');
+  };
+  const nosTxt = ['Are you sure? 🥺', 'Please... 😢', 'Pretty please? 🥹'];
+  $('#no').onclick = () => {
+    nos++; $('#doll').style.fontSize = 70 + nos * 45 + 'px';
+    if (nos >= 3) { $('#no').style.display = 'none'; $('#bubble').textContent = 'Okay, you can only press Yes now 😤💖'; $('#yes').style.fontSize = '26px'; }
+    else $('#bubble').textContent = nosTxt[nos - 1];
+  };
+  $('#yes').onclick = () => { confetti('💖'); toEnd(w.mode === 'sorry' ? 'Thank you for forgiving me 🥹💖' : 'You just made my day 💖'); };
+
+  const toEnd = (msg) => {
+    clearInterval(timer);
     $('#endName').textContent = w.name || '';
-    $('#endDate').textContent = w.date ? '📅 ' + new Date(w.date).toLocaleDateString('bn-BD', { day: 'numeric', month: 'long', year: 'numeric' }) : '';
+    $('#endDate').textContent = w.date ? '📅 ' + new Date(w.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : '';
+    $('#endMsg').textContent = typeof msg === 'string' ? msg : '';
     show('vEnd'); confetti();
   };
-  $('#toNotes').onclick = toNotes; $('#toPhotos').onclick = toPhotos; $('#toEnd').onclick = toEnd; $('#replay').onclick = start;
+  $('#toNotes').onclick = toNotes; $('#toPhotos').onclick = toPhotos; $('#toAsk').onclick = toAsk; $('#replay').onclick = start;
   start();
 }
-function confetti() {
+function confetti(emoji) {
   const cols = ['#ff6ec4', '#ffd23f', '#7873f5', '#4ade80', '#38bdf8', '#fff'];
   for (let i = 0; i < 70; i++) {
     const c = document.createElement('div'); c.className = 'conf';
-    c.style.left = Math.random() * 100 + 'vw'; c.style.background = cols[i % cols.length];
-    c.style.animationDuration = 2.5 + Math.random() * 2.5 + 's'; c.style.animationDelay = Math.random() * .8 + 's';
-    document.body.append(c); setTimeout(() => c.remove(), 6500);
+    if (emoji) { c.textContent = emoji; c.style.fontSize = 14 + Math.random() * 20 + 'px'; c.style.width = 'auto'; c.style.height = 'auto'; }
+    else c.style.background = cols[i % cols.length];
+    c.style.left = Math.random() * 100 + 'vw';
+    c.style.animationDuration = 2.2 + Math.random() * 2.2 + 's'; c.style.animationDelay = Math.random() * .6 + 's';
+    document.body.append(c); setTimeout(() => c.remove(), 5600);
   }
 }
 </script>
