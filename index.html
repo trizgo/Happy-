@@ -7,13 +7,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&family=Pacifico&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0}
+html{overflow-x:hidden;overscroll-behavior-x:none;-webkit-text-size-adjust:100%}
+#bg{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
 body{font-family:'Hind Siliguri',sans-serif;min-height:100vh;color:#fff;background:linear-gradient(160deg,#ff9cc8 0%,#ff6aa9 55%,#e8408a 100%) fixed;overflow-x:hidden}
 body::before{content:"";position:fixed;inset:0;z-index:0;background:radial-gradient(circle at 25% 12%,#ffd6e8aa,transparent 50%),radial-gradient(circle at 80% 95%,#c2185b66,transparent 55%)}
-.sp{position:fixed;z-index:0;border-radius:50%;pointer-events:none;background:radial-gradient(circle at 32% 28%,#fff 0,#fffc 6%,#ffd3e7 22%,#ff8fc0 58%,#c2185b 100%);box-shadow:inset -6px -8px 16px #8a0f4a66,0 18px 30px #8a0f4a44;animation:flt ease-in-out infinite alternate}
-.ht{position:fixed;z-index:0;pointer-events:none;filter:drop-shadow(0 14px 14px #8a0f4a66);rotate:var(--r);animation:flt ease-in-out infinite alternate}
+.sp{position:absolute;z-index:0;border-radius:50%;pointer-events:none;background:radial-gradient(circle at 32% 28%,#fff 0,#fffc 6%,#ffd3e7 22%,#ff8fc0 58%,#c2185b 100%);box-shadow:inset -6px -8px 16px #8a0f4a66,0 18px 30px #8a0f4a44;animation:flt ease-in-out infinite alternate}
+.ht{position:absolute;z-index:0;pointer-events:none;filter:drop-shadow(0 14px 14px #8a0f4a66);rotate:var(--r);animation:flt ease-in-out infinite alternate}
 .ht svg{width:100%;display:block}
 @keyframes flt{to{transform:translate(18px,-46px)}}
-.stage{display:none;position:relative;z-index:1;min-height:100vh;padding:22px 14px;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.stage{display:none;position:relative;z-index:1;min-height:100vh;min-height:100dvh;overflow-x:hidden;padding:22px 14px;flex-direction:column;align-items:center;justify-content:center;text-align:center}
 .stage.on{display:flex;animation:fade .45s}
 @keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 .card{background:rgba(160,20,90,.3);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.28);border-radius:24px;padding:22px;width:100%;max-width:440px;box-shadow:0 20px 50px rgba(0,0,0,.35)}
@@ -68,7 +70,9 @@ button.alt{background:rgba(255,255,255,.2);box-shadow:none}
 #doll{width:min(78vw,260px);transition:width .45s cubic-bezier(.3,1.6,.5,1);animation:bob 1.8s infinite alternate;filter:drop-shadow(0 14px 20px #0007)}
 #doll svg{width:100%;display:block}
 @keyframes bob{to{transform:translateY(-8px) rotate(2deg)}}
-.nb{position:relative}.nb b{position:absolute;top:12px;right:10px;width:22px;height:22px;border-radius:50%;background:#f43f5e;font-size:11px;line-height:22px;text-align:center;cursor:pointer}
+.nb{position:relative}.nb textarea{resize:none;overflow:hidden}
+.ln+.ln{margin-top:10px;padding-top:10px;border-top:1px dashed #d9b8c8}
+#bubble{white-space:pre-line;line-height:1.5}.nb b{position:absolute;top:12px;right:10px;width:22px;height:22px;border-radius:50%;background:#f43f5e;font-size:11px;line-height:22px;text-align:center;cursor:pointer}
 .resp{font-size:13px;padding:6px 10px;margin:2px 0 6px;background:#0003;border-radius:10px}
 #yes{transition:.3s}
 </style>
@@ -100,7 +104,7 @@ button.alt{background:rgba(255,255,255,.2);box-shadow:none}
     <label id="rmWrap" style="display:none"><input type="checkbox" id="rmPw">Remove existing password</label>
     <label>Final surprise</label>
     <select id="aMode"><option value="none">None</option><option value="sorry">Sorry 🥺</option><option value="love">I Love You ❤️</option></select>
-    <input id="aQ" placeholder="Custom question (optional) e.g. Will you forgive me?">
+    <label>Custom question (optional) — tap + to add more lines</label><div id="qBox"></div><button type="button" class="sm" id="addQ">＋ Add line</button>
     <div class="err" id="aerr"></div>
     <button id="save">✨ Create link</button><button class="alt" id="cancel" style="display:none">Cancel edit</button>
     <div id="result"></div>
@@ -135,24 +139,32 @@ button.alt{background:rgba(255,255,255,.2);box-shadow:none}
 
 <div id="vAsk" class="stage">
   <div class="card" style="max-width:360px;margin-bottom:14px"><div id="bubble" style="font-size:22px;font-weight:600"></div></div>
-  <div id="doll"><svg viewBox="0 0 240 285">
-<defs><radialGradient id="fur" cx=".38" cy=".3" r=".85"><stop offset="0" stop-color="#fff"/><stop offset=".55" stop-color="#fff"/><stop offset="1" stop-color="#e6e0f3"/></radialGradient>
-<radialGradient id="pk" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#fff0f6"/><stop offset="1" stop-color="#ffc4dc"/></radialGradient>
-<radialGradient id="hrt" cx=".3" cy=".25" r=".9"><stop offset="0" stop-color="#ffd0e2"/><stop offset=".5" stop-color="#ff4d8d"/><stop offset="1" stop-color="#c2185b"/></radialGradient></defs>
-<ellipse cx="120" cy="274" rx="78" ry="9" fill="#0003"/>
-<g fill="url(#fur)" stroke="#ddd5ee" stroke-width="2"><ellipse cx="80" cy="250" rx="33" ry="23"/><ellipse cx="160" cy="250" rx="33" ry="23"/><ellipse cx="120" cy="190" rx="70" ry="74"/><ellipse cx="70" cy="182" rx="21" ry="40" transform="rotate(-35 70 182)"/><ellipse cx="170" cy="182" rx="21" ry="40" transform="rotate(35 170 182)"/><circle cx="56" cy="62" r="31"/><circle cx="184" cy="62" r="31"/><ellipse cx="120" cy="105" rx="70" ry="60"/></g>
-<ellipse cx="80" cy="252" rx="17" ry="12" fill="url(#pk)"/><ellipse cx="160" cy="252" rx="17" ry="12" fill="url(#pk)"/><circle cx="56" cy="62" r="17" fill="url(#pk)"/><circle cx="184" cy="62" r="17" fill="url(#pk)"/>
-<ellipse cx="120" cy="198" rx="44" ry="48" fill="#fff" stroke="#efe9fa" stroke-width="2"/>
-<path d="M120 226C90 204 98 176 120 190C142 176 150 204 120 226Z" fill="url(#hrt)"/><ellipse cx="108" cy="188" rx="6" ry="3.5" fill="#fff" opacity=".7" transform="rotate(-30 108 188)"/>
-<g fill="url(#fur)" stroke="#ddd5ee" stroke-width="2"><ellipse cx="95" cy="204" rx="13" ry="15"/><ellipse cx="145" cy="204" rx="13" ry="15"/></g>
-<ellipse cx="120" cy="124" rx="27" ry="21" fill="#fff" stroke="#efe9fa" stroke-width="2"/>
-<g fill="#2f2140"><ellipse cx="90" cy="96" rx="9.5" ry="12"/><ellipse cx="150" cy="96" rx="9.5" ry="12"/></g>
-<g fill="#fff"><circle cx="93.5" cy="91" r="4"/><circle cx="153.5" cy="91" r="4"/><circle cx="87" cy="101" r="2"/><circle cx="147" cy="101" r="2"/></g>
-<ellipse cx="120" cy="114" rx="10" ry="7" fill="#4a3560"/><ellipse cx="116" cy="111.5" rx="3.5" ry="2" fill="#fff" opacity=".6"/>
-<path d="M120 121V127" stroke="#4a3560" stroke-width="2.5" stroke-linecap="round"/><path id="mouth" d="M107 128Q120 139 133 128" stroke="#4a3560" stroke-width="3" fill="none" stroke-linecap="round"/>
-<ellipse cx="66" cy="120" rx="12" ry="7.5" fill="#ffc2d9" opacity=".8"/><ellipse cx="174" cy="120" rx="12" ry="7.5" fill="#ffc2d9" opacity=".8"/>
-<g id="brows" style="display:none" stroke="#cdbfe4" stroke-width="4" stroke-linecap="round" fill="none"><path d="M76 80L102 72"/><path d="M164 80L138 72"/></g>
-<g id="tears" style="display:none" fill="#7dd3fc"><path d="M86 110q-7 16 0 22q7-6 0-22z"/><path d="M154 110q-7 16 0 22q7-6 0-22z"/></g></svg></div>
+  <div id="doll"><svg viewBox="0 0 260 300">
+<defs>
+<radialGradient id="fur" cx=".4" cy=".3" r=".9"><stop offset="0" stop-color="#fffdf8"/><stop offset=".6" stop-color="#fbf4e8"/><stop offset="1" stop-color="#eadcc6"/></radialGradient>
+<radialGradient id="ear" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#c79a6d"/><stop offset="1" stop-color="#9a6a44"/></radialGradient>
+<pattern id="chk" width="14" height="14" patternUnits="userSpaceOnUse"><rect width="14" height="14" fill="#c9a07a"/><rect width="7" height="7" fill="#9a6a44"/><rect x="7" y="7" width="7" height="7" fill="#9a6a44"/></pattern>
+<pattern id="chk2" width="8" height="8" patternUnits="userSpaceOnUse"><rect width="8" height="8" fill="#c9a07a"/><rect width="4" height="4" fill="#94653f"/><rect x="4" y="4" width="4" height="4" fill="#94653f"/></pattern>
+<filter id="fz" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3.5"/></filter>
+</defs>
+<ellipse cx="130" cy="290" rx="92" ry="9" fill="#0003"/>
+<g filter="url(#fz)" fill="url(#fur)" stroke="#e3d5bf" stroke-width="1.5">
+<ellipse cx="78" cy="248" rx="44" ry="37" transform="rotate(-12 78 248)"/><ellipse cx="182" cy="248" rx="44" ry="37" transform="rotate(12 182 248)"/>
+<ellipse cx="130" cy="192" rx="72" ry="78"/>
+<ellipse cx="60" cy="186" rx="23" ry="46" transform="rotate(16 60 186)"/><ellipse cx="200" cy="186" rx="23" ry="46" transform="rotate(-16 200 186)"/>
+<circle cx="70" cy="54" r="30"/><circle cx="190" cy="54" r="30"/>
+<ellipse cx="130" cy="100" rx="71" ry="62"/></g>
+<ellipse cx="130" cy="156" rx="52" ry="12" fill="#d9c8ac" opacity=".35"/>
+<circle cx="70" cy="56" r="16" fill="url(#ear)"/><circle cx="190" cy="56" r="16" fill="url(#ear)"/>
+<ellipse cx="74" cy="256" rx="27" ry="22" fill="url(#chk)" stroke="#f6ecda" stroke-width="3" transform="rotate(-12 74 256)"/><ellipse cx="186" cy="256" rx="27" ry="22" fill="url(#chk)" stroke="#f6ecda" stroke-width="3" transform="rotate(12 186 256)"/>
+<ellipse cx="130" cy="124" rx="31" ry="24" fill="#fffdf8" stroke="#eee2cf" stroke-width="1.5"/>
+<circle cx="102" cy="94" r="8.5" fill="#1b1410"/><circle cx="158" cy="94" r="8.5" fill="#1b1410"/><circle cx="105" cy="91" r="2.8" fill="#fff"/><circle cx="161" cy="91" r="2.8" fill="#fff"/>
+<path d="M120 112Q130 105 140 112Q138 123 130 126Q122 123 120 112Z" fill="#3a2a22"/><ellipse cx="127" cy="112" rx="4" ry="1.8" fill="#fff" opacity=".45"/>
+<path d="M130 126V131" stroke="#3a2a22" stroke-width="2.2" stroke-linecap="round"/><path id="mouth" d="M114 130Q122 138 130 131Q138 138 146 130" stroke="#3a2a22" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<g><path d="M130 164L96 148Q88 164 96 182Z" fill="url(#chk2)"/><path d="M130 164L164 148Q172 164 164 182Z" fill="url(#chk2)"/><rect x="120" y="154" width="20" height="18" rx="6" fill="#a8764c"/></g>
+<path d="M130 232C100 212 106 190 130 202C154 190 160 212 130 232Z" fill="#b07d57" stroke="#e2c6a4" stroke-width="1.8" stroke-dasharray="3 2.5"/>
+<g id="brows" style="display:none" stroke="#c3ab88" stroke-width="4" stroke-linecap="round" fill="none"><path d="M88 80L114 72"/><path d="M172 80L146 72"/></g>
+<g id="tears" style="display:none" fill="#7dd3fc"><path d="M96 106q-7 16 0 22q7-6 0-22z"/><path d="M164 106q-7 16 0 22q7-6 0-22z"/></g></svg></div>
   <div style="margin-top:18px"><button id="yes">Yes 💖</button><button id="no" class="alt">No</button></div>
 </div>
 
@@ -168,7 +180,7 @@ button.alt{background:rgba(255,255,255,.2);box-shadow:none}
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { getFirestore, doc, setDoc, getDoc, getDocs, addDoc, deleteDoc, collection, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getFirestore, doc, setDoc, getDoc, getDocs, addDoc, deleteDoc, collection, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const app = initializeApp({
   apiKey: "AIzaSyBXTX7h1kKT7B5HSzbhKSqwyqfD8tZ76f8",
@@ -186,11 +198,12 @@ const baseLink = id => location.origin + location.pathname + '?w=' + id;
 const photoDocs = async id => (await getDocs(collection(db, 'wishes', id, 'photos'))).docs;
 
 // 3D pink background
+const bg = document.createElement('div'); bg.id = 'bg'; document.body.append(bg);
 const heart = '<svg viewBox="0 0 100 90"><defs><radialGradient id="bh" cx=".3" cy=".25" r=".9"><stop offset="0" stop-color="#fff"/><stop offset=".15" stop-color="#ffc9df"/><stop offset=".6" stop-color="#ff4f95"/><stop offset="1" stop-color="#b3125a"/></radialGradient></defs><path d="M50 85C10 55 2 30 18 14C32 1 46 10 50 24C54 10 68 1 82 14C98 30 90 55 50 85Z" fill="url(#bh)"/><ellipse cx="30" cy="25" rx="11" ry="5" fill="#fff" opacity=".75" transform="rotate(-35 30 25)"/></svg>';
 for (let i = 0; i < 10; i++) { const d = document.createElement('div'); d.className = 'sp'; const z = 24 + Math.random() * 110;
-  d.style.cssText = `left:${Math.random() * 96}vw;top:${Math.random() * 96}vh;width:${z}px;height:${z}px;filter:blur(${z < 50 ? 1.5 : 0}px);animation-duration:${7 + Math.random() * 7}s;animation-delay:${-Math.random() * 10}s`; document.body.append(d); }
+  d.style.cssText = `left:${Math.random() * 96}vw;top:${Math.random() * 96}vh;width:${z}px;height:${z}px;filter:blur(${z < 50 ? 1.5 : 0}px);animation-duration:${7 + Math.random() * 7}s;animation-delay:${-Math.random() * 10}s`; bg.append(d); }
 for (let i = 0; i < 7; i++) { const d = document.createElement('div'); d.className = 'ht'; const z = 34 + Math.random() * 50; d.innerHTML = heart;
-  d.style.cssText = `left:${Math.random() * 92}vw;top:${Math.random() * 92}vh;width:${z}px;--r:${Math.random() * 50 - 25}deg;animation-duration:${6 + Math.random() * 6}s;animation-delay:${-Math.random() * 8}s`; document.body.append(d); }
+  d.style.cssText = `left:${Math.random() * 92}vw;top:${Math.random() * 92}vh;width:${z}px;--r:${Math.random() * 50 - 25}deg;animation-duration:${6 + Math.random() * 6}s;animation-delay:${-Math.random() * 8}s`; bg.append(d); }
 
 const wid = new URLSearchParams(location.search).get('w');
 if (wid) viewer(wid); else adminInit();
@@ -199,14 +212,19 @@ if (wid) viewer(wid); else adminInit();
 function adminInit() {
   show('adminLogin');
   let photos = [], editId = null, cur = {};
-  const addNote = (v = '') => {
-    const w = document.createElement('div'); w.className = 'nb'; const t = document.createElement('textarea'); t.rows = 2; t.placeholder = 'Write a note...'; t.value = v;
-    const x = document.createElement('b'); x.textContent = '✕'; x.onclick = () => { if ($('#notesBox').children.length > 1) w.remove(); else t.value = ''; };
-    w.append(t, x); $('#notesBox').append(w);
+  let unsubs = [];
+  const grow = t => { t.style.height = 'auto'; if (t.scrollHeight) t.style.height = t.scrollHeight + 'px'; };
+  const addBox = (cid, v = '', ph = 'Write here...') => {
+    const w = document.createElement('div'); w.className = 'nb'; const t = document.createElement('textarea'); t.rows = 2; t.placeholder = ph; t.value = v; t.oninput = () => grow(t);
+    const x = document.createElement('b'); x.textContent = '✕'; x.onclick = () => { if ($('#' + cid).children.length > 1) w.remove(); else { t.value = ''; grow(t); } };
+    w.append(t, x); $('#' + cid).append(w); requestAnimationFrame(() => grow(t));
   };
-  const getNotes = () => [...document.querySelectorAll('#notesBox textarea')].map(t => t.value.trim()).filter(Boolean);
-  const setNotes = a => { $('#notesBox').innerHTML = ''; (a && a.length ? a : ['']).forEach(v => addNote(v)); };
-  $('#addNote').onclick = () => addNote();
+  const getBoxes = cid => [...document.querySelectorAll('#' + cid + ' textarea')].map(t => t.value.trim()).filter(Boolean);
+  const setBoxes = (cid, a, ph) => { $('#' + cid).innerHTML = ''; (a && a.length ? a : ['']).forEach(v => addBox(cid, v, ph)); };
+  const getNotes = () => getBoxes('notesBox');
+  const setNotes = a => setBoxes('notesBox', a, 'Write a note...');
+  $('#addNote').onclick = () => addBox('notesBox', '', 'Write a note...');
+  $('#addQ').onclick = () => addBox('qBox', '', 'Write a line...');
   onAuthStateChanged(auth, u => { if (u) { show('admin'); loadList(); } else show('adminLogin'); });
   $('#loginBtn').onclick = async () => {
     $('#lerr').textContent = '';
@@ -230,12 +248,12 @@ function adminInit() {
     photos.push(...await Promise.all(fs.map(resize))); renderPrev();
   };
   const clearForm = () => {
-    ['aName', 'aDate', 'aPass', 'aQ'].forEach(i => $('#' + i).value = ''); setNotes();
+    ['aName', 'aDate', 'aPass'].forEach(i => $('#' + i).value = ''); setNotes(); setBoxes('qBox', [], 'Write a line...');
     $('#aMode').value = 'none'; $('#rmPw').checked = false; $('#rmWrap').style.display = 'none';
     photos = []; renderPrev(); editId = null; cur = {};
     $('#formTitle').textContent = '🎂 New Wish'; $('#save').textContent = '✨ Create link'; $('#cancel').style.display = 'none';
   };
-  $('#cancel').onclick = clearForm; setNotes();
+  $('#cancel').onclick = clearForm; setNotes(); setBoxes('qBox', [], 'Write a line...');
 
   $('#save').onclick = async () => {
     const btn = $('#save'); $('#aerr').textContent = '';
@@ -249,7 +267,7 @@ function adminInit() {
       if (pass) pwHash = await sha(pass); else if ($('#rmPw').checked) pwHash = '';
       await setDoc(doc(db, 'wishes', id), {
         name: $('#aName').value.trim(), date: $('#aDate').value, notes, pwHash,
-        mode: $('#aMode').value, q: $('#aQ').value.trim(), createdAt: cur.createdAt || Date.now()
+        mode: $('#aMode').value, qs: getBoxes('qBox'), q: getBoxes('qBox')[0] || '', createdAt: cur.createdAt || Date.now()
       });
       if (editId) await Promise.all((await photoDocs(id)).map(d => deleteDoc(d.ref)));
       await Promise.all(photos.map((data, i) => addDoc(collection(db, 'wishes', id, 'photos'), { data, i })));
@@ -264,7 +282,7 @@ function adminInit() {
   async function startEdit(id, w) {
     clearForm(); editId = id; cur = w;
     $('#aName').value = w.name || ''; $('#aDate').value = w.date || ''; setNotes(w.notes);
-    $('#aMode').value = w.mode || 'none'; $('#aQ').value = w.q || '';
+    $('#aMode').value = w.mode || 'none'; setBoxes('qBox', w.qs && w.qs.length ? w.qs : (w.q ? [w.q] : []), 'Write a line...');
     $('#aPass').placeholder = w.pwHash ? 'Leave empty to keep current password' : 'Leave empty for no lock';
     $('#rmWrap').style.display = w.pwHash ? 'block' : 'none';
     $('#formTitle').textContent = '✏️ Edit Wish'; $('#save').textContent = '💾 Save changes'; $('#cancel').style.display = 'inline-block';
@@ -272,7 +290,7 @@ function adminInit() {
     photos = (await photoDocs(id)).map(d => d.data()).sort((a, b) => a.i - b.i).map(p => p.data); renderPrev();
   }
   async function loadList() {
-    const l = $('#list'); l.innerHTML = '';
+    unsubs.forEach(u => u()); unsubs = []; const l = $('#list'); l.innerHTML = '';
     const snap = await getDocs(query(collection(db, 'wishes'), orderBy('createdAt', 'desc')));
     snap.forEach(d => {
       const w = d.data(), r = document.createElement('div'); r.className = 'row';
@@ -288,13 +306,15 @@ function adminInit() {
       });
       r.append(t, b); l.append(r);
       if (w.mode && w.mode !== 'none') {
-        const x = document.createElement('div'); x.className = 'resp'; x.textContent = '⏳ Not answered yet'; l.append(x);
-        getDocs(collection(db, 'wishes', d.id, 'responses')).then(sn => {
+        const x = document.createElement('div'); x.className = 'resp'; x.textContent = '⏳ No answers yet'; l.append(x);
+        const lab = w.mode === 'sorry' ? 'Sorry 🥺' : 'I Love You ❤️';
+        unsubs.push(onSnapshot(collection(db, 'wishes', d.id, 'responses'), sn => {
           const a = sn.docs.map(q => q.data()).sort((p, q) => q.at - p.at); if (!a.length) return;
-          const y = a.find(v => v.answer === 'yes'), v = y || a[0], lab = w.mode === 'sorry' ? 'Sorry 🥺' : 'I Love You ❤️';
-          const when = new Date(v.at).toLocaleString('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
-          x.textContent = y ? `✅ ${lab}: said YES after ${y.nos} No click${y.nos === 1 ? '' : 's'} — ${when}` : `🤔 ${lab}: clicked No ${v.nos} time${v.nos === 1 ? '' : 's'}, no Yes yet — ${when}`;
-        }).catch(() => {});
+          x.innerHTML = ''; const hd = document.createElement('div'); hd.style.fontWeight = '700'; hd.textContent = `${lab} — ${a.length} answer${a.length === 1 ? '' : 's'}`; x.append(hd);
+          const bx = document.createElement('div'); bx.style.cssText = 'max-height:150px;overflow:auto;margin-top:4px'; x.append(bx);
+          a.forEach(v => { const e = document.createElement('div'); const yes = v.answer === 'yes';
+            e.textContent = (yes ? '✅ YES' : '❌ NO' + (v.nos ? ' (No #' + v.nos + ')' : '')) + ' — ' + new Date(v.at).toLocaleString('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit', second: '2-digit' }); bx.append(e); });
+        }, () => {}));
       }
     });
   }
@@ -354,7 +374,7 @@ async function viewer(id) {
   const toNotes = () => {
     if (!w.notes.length) return toPhotos();
     const n = $('#notes'); n.innerHTML = '';
-    w.notes.forEach((t, i) => { const d = document.createElement('div'); d.className = 'note'; d.style.animationDelay = i * .6 + 's'; d.textContent = t; n.append(d); });
+    w.notes.forEach((t, i) => { const d = document.createElement('div'); d.className = 'note'; d.style.animationDelay = i * .6 + 's'; t.split(/\n/).forEach(l => { if (!l.trim()) return; const p = document.createElement('div'); p.className = 'ln'; p.textContent = l; d.append(p); }); n.append(d); });
     show('vNotes');
   };
   const place = () => {
@@ -385,18 +405,21 @@ async function viewer(id) {
   };
 
   const nosTxt = ['Are you sure? 🥺', 'Please... 😢', 'Pretty please? 🥹', 'I will be so sad... 😭', 'Last chance, please? 💔'];
-  const log = a => setDoc(doc(db, 'wishes', id, 'responses', sid), { mode: w.mode, nos, answer: a || '', at: Date.now() }).catch(() => {});
-  const sad = () => { const sd = nos >= 2; ['#tears', '#brows'].forEach(i => $(i).style.display = sd ? '' : 'none'); $('#mouth').setAttribute('d', sd ? 'M108 134Q120 123 132 134' : 'M107 128Q120 139 133 128'); };
+  const log = a => addDoc(collection(db, 'wishes', id, 'responses'), { mode: w.mode, nos, answer: a, at: Date.now() }).catch(() => {});
+  const sad = () => { const sd = nos >= 2; ['#tears', '#brows'].forEach(i => $(i).style.display = sd ? '' : 'none'); $('#mouth').setAttribute('d', sd ? 'M114 137Q122 129 130 134Q138 129 146 137' : 'M114 130Q122 138 130 131Q138 138 146 130'); };
   const toAsk = () => {
     clearInterval(timer);
     if (!w.mode || w.mode === 'none') return toEnd();
     nos = 0; sid = Math.random().toString(36).slice(2, 10); sad();
-    $('#doll').style.width = ''; $('#no').style.display = ''; $('#yes').style.fontSize = '';
-    $('#bubble').textContent = w.q || (w.mode === 'sorry' ? 'Will you forgive me? 🥺' : 'I love you ❤️ Do you love me too?');
+    $('#doll').style.width = ''; $('#no').style.display = ''; $('#no').style.transform = ''; $('#yes').style.fontSize = '';
+    const qs = w.qs && w.qs.length ? w.qs : (w.q ? [w.q] : []);
+    $('#bubble').textContent = qs.length ? qs.join('\n') : (w.mode === 'sorry' ? 'Will you forgive me? 🥺' : 'I love you ❤️ Do you love me too?');
     show('vAsk');
   };
   $('#no').onclick = () => {
-    nos++; sad(); $('#doll').style.width = `min(94vw,${260 + nos * 45}px)`; log();
+    nos++; sad(); $('#doll').style.width = `min(94vw,${260 + nos * 45}px)`; log('no');
+    const tx = (nos % 2 ? -1 : 1) * Math.min(innerWidth / 2 - 50, 60 + nos * 30) - 65;
+    $('#no').style.transform = `translate(${tx}px,64px)`;
     if (nos >= 5) { $('#no').style.display = 'none'; $('#bubble').textContent = 'Okay, you can only press Yes now 😤💖'; $('#yes').style.fontSize = '26px'; }
     else $('#bubble').textContent = nosTxt[nos - 1];
   };
@@ -418,7 +441,7 @@ function confetti(emoji) {
     const c = document.createElement('div'); c.className = 'conf';
     if (emoji) { c.textContent = emoji; c.style.fontSize = 14 + Math.random() * 20 + 'px'; c.style.width = 'auto'; c.style.height = 'auto'; }
     else c.style.background = cols[i % cols.length];
-    c.style.left = Math.random() * 100 + 'vw';
+    c.style.left = Math.random() * 92 + 'vw';
     c.style.animationDuration = 2.2 + Math.random() * 2.2 + 's'; c.style.animationDelay = Math.random() * .6 + 's';
     document.body.append(c); setTimeout(() => c.remove(), 5600);
   }
